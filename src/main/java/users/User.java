@@ -1,6 +1,6 @@
-package user;
+package users;
 
-public class Users {
+public class User {
     private String email;
     private String password;
     private String name;
@@ -45,5 +45,19 @@ public class Users {
 
     public void setTelNumber(int telNumber) {
         this.telNumber = telNumber;
+    }
+
+    public User() {
+    }
+    public User(String email, String password, String name, String surname, int telNumber) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.surname = surname;
+        this.telNumber = telNumber;
+    }
+
+    public User login(String email, String password) {
+        return this;
     }
 }
