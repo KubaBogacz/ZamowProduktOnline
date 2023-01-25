@@ -49,11 +49,28 @@ public class ProductDAO {
     }
     private static List<Product> createProductList(ResultSet rsProducts) throws SQLException {
         List<Product> productList = new ArrayList<>();
-
         while (rsProducts.next()) {
-            productList.add(new Product(rsProducts.getInt(1), rsProducts.getString(2), rsProducts.getDouble(3), rsProducts.getString(4), rsProducts.getString(5)));
+            int categoryId = rsProducts.getInt(5);
+            String categoryName = getCategoryName(categoryId);
+            productList.add(new Product(rsProducts.getInt(1), rsProducts.getString(2), rsProducts.getDouble(3), rsProducts.getString(4), categoryName));
         }
         return productList;
+    }
+
+    private static String getCategoryName(int categoryId) {
+        String sql = "SELECT name FROM zpo.categories WHERE id = " + categoryId;
+        try (Connection connection = DBConnection.getConnection()) {
+            assert connection != null;
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                ResultSet rsName = preparedStatement.executeQuery();
+                while (rsName.next()) {
+                    return rsName.getString(1);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
     }
 }
 
