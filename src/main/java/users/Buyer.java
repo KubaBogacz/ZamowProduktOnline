@@ -6,7 +6,7 @@ public class Buyer extends User {
     public Buyer() {
     }
 
-    public Buyer(String email, String password, String name, String surname, int telNumber) {
-        super(email, password, name, surname, telNumber);
+    public Buyer(int id, String email, String password, String name, String surname, int telNumber) {
+        super(id, email, password, name, surname, telNumber);
     }
 }

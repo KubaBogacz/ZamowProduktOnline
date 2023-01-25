@@ -6,7 +6,7 @@ public class Seller extends User {
     public Seller() {
     }
 
-    public Seller(String email, String password, String name, String surname, int telNumber) {
-        super(email, password, name, surname, telNumber);
+    public Seller(int id, String email, String password, String name, String surname, int telNumber) {
+        super(id, email, password, name, surname, telNumber);
     }
 }
