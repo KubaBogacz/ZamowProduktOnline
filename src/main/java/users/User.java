@@ -1,11 +1,20 @@
 package users;
 
 public class User {
+    private int id;
     private String email;
     private String password;
     private String name;
     private String surname;
     private int telNumber;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getEmail() {
         return email;
@@ -49,15 +58,12 @@ public class User {
 
     public User() {
     }
-    public User(String email, String password, String name, String surname, int telNumber) {
+    public User(int id, String email, String password, String name, String surname, int telNumber) {
+        this.id = id;
         this.email = email;
         this.password = password;
         this.name = name;
         this.surname = surname;
         this.telNumber = telNumber;
-    }
-
-    public User login(String email, String password) {
-        return this;
     }
 }

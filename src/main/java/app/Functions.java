@@ -1,10 +1,36 @@
 package app;
 
 import database.DBConnection;
+import users.User;
 
 import java.sql.*;
+import java.util.List;
+import java.util.Objects;
 
 public class Functions {
+
+    // Funkcja do logowania. Zwraca Usera - mozna ustawic w petli Appki jako ActiveUser, czy cos - zeby sledzic, ktorym userem jest uzytkownik
+    public User login(String email, String password, List<User> userList) {
+        for (User checkedUser : userList) {
+            if (Objects.equals(checkedUser.getEmail(), email) && Objects.equals(checkedUser.getPassword(), password)) {
+                System.out.printf("Zalogowano pomyślnie jako: %s.", checkedUser.getEmail());
+                return checkedUser;
+            }
+        }
+        System.out.println("Podana kombinacja emailu oraz hasła jest nieprawidłowa!");
+        return null;
+    }
+
+    // Funkcja do sprawdzania, czy email istnieje w DB - jesli true, odmawiamy zalozenia konta, jesli false - dopuszczamy
+    public boolean checkIfEmailTaken(String email, List<User> userList) {
+        for (User checkedUser : userList) {
+            if (Objects.equals(checkedUser.getEmail(), email)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public static void showCategories() {
         String sql = "SELECT name FROM zpo.categories";
