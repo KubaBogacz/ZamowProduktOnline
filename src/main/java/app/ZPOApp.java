@@ -1,9 +1,6 @@
 package app;
 
-import database.CartDAO;
-import database.DBConnection;
-import database.ProductDAO;
-import database.UserDAO;
+import database.*;
 import products.Cart;
 import products.Product;
 import users.User;
@@ -43,6 +40,7 @@ public class ZPOApp {
 
             String userInputString;
             int userInputInt;
+            double userInputDouble;
 
             User activeUser = null;
             Cart userCart = null;
@@ -95,7 +93,7 @@ public class ZPOApp {
                         boolean registerCheck = functions.createAccount(lastID, userEmail, userPassword, userFirstName, userLastName, userPhoneNumber, userType, userList, connection);
                         if (registerCheck) {
                             System.out.println("Pomyślnie dokonano rejestracji.");
-                        } else if (registerCheck) {
+                        } else {
                             System.out.println("Rejestracja nie przebiegła prawidłowo. Spróbuj jeszcze raz.");
                         }
                     } else if (userInputInt == 0) { // Wyłączenie programu
@@ -174,9 +172,10 @@ public class ZPOApp {
                         int productId = userInputInt;
                         Product chosenProduct = getProductFromList(productId, productList);
                         scanner.nextLine();
-                        Functions.showProductInfo(userInputInt, productList);
+                        Functions.showProductInfo(userInputInt, productList, connection);
                         System.out.println("Wciśnij 1, aby dodać produkt do koszyka.");
                         System.out.println("Wciśnij 2, aby dodać opinię o produkcie.");
+                        System.out.println("Wciśnij 3 aby wyświetlić opinie o produkcie");
                         System.out.println("Wciśnij 0, aby wrócić do głównego menu.");
                         userInputInt = scanner.nextInt();
                         scanner.nextLine();
@@ -186,7 +185,14 @@ public class ZPOApp {
                             scanner.nextLine();
                             userCart.addProductToCart(chosenProduct, amount);
                         } else if (userInputInt == 2) {
-                            System.out.println("Brak opcji dodawania opinii o produkcie");
+                            System.out.println("Podaj na ile oceniasz produkt (od 1 do 10):");
+                            userInputDouble = scanner.nextDouble();
+                            scanner.nextLine();
+                            System.out.println("Napisz co sądzisz o produkcie:");
+                            userInputString = scanner.nextLine();
+                            ReviewsDAO.addReview(activeUser, chosenProduct, userInputString, userInputDouble, connection);
+                        } else if (userInputInt == 3) {
+                            ReviewsDAO.showReviews(chosenProduct, connection);
                         } else if (userInputInt == 0) {
                             continue;
                         }
