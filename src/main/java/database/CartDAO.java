@@ -7,10 +7,21 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 
 public class CartDAO {
-    public void saveCartToDB(Cart cart) {
+
+    public static void addCart(Cart cart) {
+        String sql = "INSERT INTO zpo.carts (user_id) VALUES (?)";
+        try (Connection connection = DBConnection.getConnection()) {
+            assert connection != null;
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, cart.getUserId());
+        } catch (SQLException e) {
+            System.out.println("Error adding cart: " + e.getMessage());
+        }
+    }
+    public void updateCart(Cart cart) {
         String sql = "INSERT INTO zpo.carts (user_id, products, amounts, price) VALUES (?, ?, ?, ?)";
         try (Connection connection = DBConnection.getConnection()) {
             assert connection != null;
@@ -21,11 +32,11 @@ public class CartDAO {
             preparedStatement.setDouble(4, cart.getPrice());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Error adding product: " + e.getMessage());
+            System.out.println("Error updating cart: " + e.getMessage());
         }
     }
 
-    public Cart readCartFromDB(int userId, ArrayList<Product> products) {
+    public static Cart importCart(int userId, List<Product> products) {
         String sql = "SELECT * FROM zpo.carts WHERE user_id = " + userId + ";";
         try (Connection connection = DBConnection.getConnection()) {
             assert connection != null;
@@ -58,7 +69,8 @@ public class CartDAO {
             }
             return cart;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println("Error importing cart: " + e.getMessage());
         }
+        return null;
     }
 }

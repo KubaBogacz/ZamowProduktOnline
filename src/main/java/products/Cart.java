@@ -8,6 +8,8 @@ public class Cart {
     private ArrayList<Integer> amounts;
     private double price = 0;
 
+    public void Cart() {}
+
     public int getUserId() {
         return userId;
     }

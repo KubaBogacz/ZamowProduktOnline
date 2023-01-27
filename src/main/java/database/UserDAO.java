@@ -1,5 +1,6 @@
 package database;
 
+import products.Cart;
 import users.Buyer;
 import users.Seller;
 import users.User;
@@ -24,6 +25,8 @@ public class UserDAO {
             preparedStatement.setString(5, user.getSurname());
             preparedStatement.setInt(6, user.getTelNumber());
             preparedStatement.executeUpdate();
+            Cart cart = new Cart();
+            cart.setUserId(user.getId());
         } catch (SQLException e) {
             System.out.println("Error adding user: " + e.getMessage());
         }
