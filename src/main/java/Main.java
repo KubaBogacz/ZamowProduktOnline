@@ -86,17 +86,37 @@ public class Main {
             while (loggedIn && running) {
                 Functions.showCategories();
                 System.out.println("Wpisz nazwę kategorii aby wyświetlić znajdujące się w niej produkty.");
+                System.out.println("Wpisz 'Koszyk' aby wyświetlić zawartość swojego koszyka");
+                System.out.println("Wpisz 'Historia' aby zobaczyć historię swoich zakupów");
                 System.out.println("Wpisz 'Wyloguj' aby się wylogować.");
                 userInputString = scanner.nextLine();
                 // Wylogowanie zalogowanego użytkownika
                 if (userInputString.equals("Wyloguj")) {
                     loggedIn = false;
                     continue;
+                } else if (userInputString.equals("Koszyk")) {
+                    // Tutaj trzeba zrobić koszyk, który będzie można clearować lub kupić
+                    System.out.println("Brak implementacji koszyka");
+                } else if (userInputString.equals("Historia")) {
+                    // Tutaj należy wyświetlić historię zakupów użytkownika
+                    System.out.println("Brak implementacji historii zakupów");
                 } else {
                     Functions.showCategoryProducts(userInputString, productList);
                     System.out.println("Wpisz nazwę produktu aby wyświetlić jego opis");
                     userInputString = scanner.nextLine();
                     Functions.showProductInfo(userInputString, productList);
+                    System.out.println("Wciśnij 1 aby dodać produkt do koszyka.");
+                    System.out.println("Wciśnij 2 aby dodać opinię o produkcie.");
+                    System.out.println("Wciśnij 0 aby wrócić do głównego menu.");
+                    userInputInt = scanner.nextInt();
+                    scanner.nextLine();
+                    if (userInputInt == 1) {
+                        System.out.println("Brak opcji dodawania rzeczy do koszyka");
+                    } else if (userInputInt == 2) {
+                        System.out.println("Brak opcji dodawania opinii o produkcie");
+                    } else if (userInputInt == 0) {
+                        continue;
+                    }
                 }
             }
         }

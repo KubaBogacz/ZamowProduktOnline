@@ -77,7 +77,7 @@ public class Functions {
             assert connection != null;
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                 ResultSet rsShowCategories = preparedStatement.executeQuery();
-                System.out.println("Kategorie: ");
+                System.out.println("Kategorie produktów:");
                 printResultSet(rsShowCategories);
             }
         } catch (SQLException e) {
@@ -95,7 +95,7 @@ public class Functions {
         }
     }
 
-    // Funkcja do wyświetlania informacji o danym produkcie
+    // Funkcja do wyświetlania informacji o danym produkcie, należy dodać informację ile osób kupiło produkt
     public static void showProductInfo(String productName, List<Product> productList) {
         for (Product product : productList) {
             if (product.getName().equals(productName)) {
