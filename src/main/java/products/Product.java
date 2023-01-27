@@ -57,4 +57,11 @@ public class Product {
         this.description = description;
         this.category = category;
     }
+
+    @Override
+    public String toString() {
+        return getName() + "\n" +
+                "Opis:" + getDescription() + "\n" +
+                "Cena:" + getPrice() + "\n";
+    }
 }

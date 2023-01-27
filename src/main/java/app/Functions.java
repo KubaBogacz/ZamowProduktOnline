@@ -75,18 +75,11 @@ public class Functions {
     }
 
     // Funkcja do wyświetlania informacji o danym produkcie
-    public static void showProductInfo(String productName) {
-        String sql = "SELECT products.name, products.description, products.price FROM zpo.products" +
-                " WHERE products.name = '" + productName + "';";
-        try (Connection connection = DBConnection.getConnection()) {
-            assert connection != null;
-            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                ResultSet rsProductInfo = preparedStatement.executeQuery();
-                System.out.println("Opis: ");
-                printResultSet(rsProductInfo);
+    public static void showProductInfo(String productName, List<Product> productList) {
+        for (Product product : productList) {
+            if (product.getName().equals(productName)) {
+                System.out.println(product.toString());
             }
-        } catch (SQLException e) {
-            System.out.println("Error printing product info: " + e.getMessage());
         }
     }
 

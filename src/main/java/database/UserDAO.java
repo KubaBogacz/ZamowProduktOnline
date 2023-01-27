@@ -13,7 +13,7 @@ import java.util.Objects;
 public class UserDAO {
 
     public void addUser(User user) {
-        String sql = "INSERT INTO zpo.users (id, email, password, name, surname, telNumber) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO zpo.users (id, email, password, name, surname, phone_number) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection connection = DBConnection.getConnection()) {
             assert connection != null;
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
