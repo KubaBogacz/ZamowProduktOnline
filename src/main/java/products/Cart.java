@@ -5,11 +5,12 @@ import database.CartDAO;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Cart {
     private int userId;
-    private ArrayList<Product> products;
-    private ArrayList<Integer> amounts;
+    private List<Product> products = new ArrayList<Product>();
+    private List<Integer> amounts = new ArrayList<Integer>();
     private double price = 0;
 
     public void Cart() {}
@@ -22,19 +23,19 @@ public class Cart {
         this.userId = userId;
     }
 
-    public ArrayList<Product> getProducts() {
+    public List<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(ArrayList<Product> products) {
+    public void setProducts(List<Product> products) {
         this.products = products;
     }
 
-    public ArrayList<Integer> getAmounts() {
+    public List<Integer> getAmounts() {
         return amounts;
     }
 
-    public void setAmounts(ArrayList<Integer> amounts) {
+    public void setAmounts(List<Integer> amounts) {
         this.amounts = amounts;
     }
 

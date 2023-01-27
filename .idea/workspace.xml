@@ -4,16 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="412f1d1c-db2a-40e6-a18f-3f6458ca7dd5" name="Changes" comment="Stworzono klase ZPOApp zawierajaca petle aplikacji, edytowano Main&#10;&#10;Poprawiono Cart">
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+    <list default="true" id="412f1d1c-db2a-40e6-a18f-3f6458ca7dd5" name="Changes" comment="Zmieniono w sumie wszystko :)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/Functions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/Functions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/app/ZPOApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/ZPOApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/CartDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/CartDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/database/DBConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/DBConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/ProductDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/ProductDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/UserDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/products/Cart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/products/Cart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/products/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/products/Product.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,7 +118,7 @@
       <workItem from="1674415843189" duration="9148000" />
       <workItem from="1674808000698" duration="26000" />
       <workItem from="1674809327586" duration="2998000" />
-      <workItem from="1674837496895" duration="20114000" />
+      <workItem from="1674837496895" duration="21643000" />
     </task>
     <task id="LOCAL-00001" summary="Zmieniono:&#10;User jest teraz abstract, nie ma kreatora.&#10;Użytkowników tworzymy tylko jako Buyer albo Seller&#10;&#10;Zmieniono odpowiednio wszystkie metody z tym związane">
       <created>1674844387885</created>
@@ -145,7 +141,14 @@
       <option name="project" value="LOCAL" />
       <updated>1674850816892</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Zmieniono w sumie wszystko :)">
+      <created>1674860144215</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1674860144215</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -166,7 +169,8 @@
     <MESSAGE value="Zmieniono:&#10;User jest teraz abstract, nie ma kreatora.&#10;Użytkowników tworzymy tylko jako Buyer albo Seller&#10;&#10;Zmieniono odpowiednio wszystkie metody z tym związane" />
     <MESSAGE value="Dodano Cart" />
     <MESSAGE value="Stworzono klase ZPOApp zawierajaca petle aplikacji, edytowano Main&#10;&#10;Poprawiono Cart" />
-    <option name="LAST_COMMIT_MESSAGE" value="Stworzono klase ZPOApp zawierajaca petle aplikacji, edytowano Main&#10;&#10;Poprawiono Cart" />
+    <MESSAGE value="Zmieniono w sumie wszystko :)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Zmieniono w sumie wszystko :)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -118,15 +118,15 @@ public class ZPOApp {
                         continue;
                     } else if (userInputString.equals("koszyk")) {
                         List<Product> userCartProducts = userCart.getProducts();
-                        if (userCartProducts == null) {
-                            System.out.println("Twój koszyk jest pusty.");
+                        if (userCartProducts == null || userCartProducts.isEmpty()) {
+                            System.out.println("\nTwój koszyk jest pusty.\n");
                             continue;
                         } else {
-                            System.out.printf("Twój koszyk:\n(ID, Nazwa, Cena, Ilość)");
+                            System.out.printf("\nTwój koszyk:\n(ID, Nazwa, Cena, Ilość)\n");
                             for (Product product : userCartProducts) {
                                 System.out.printf("%d, %s, %.2f, %d\n", product.getId(), product.getName(), product.getPrice(), userCart.getAmounts().get(userCartProducts.indexOf(product)));
                             }
-                            System.out.printf("Wartość koszyka wynosi: %.2f\n", userCart.getPrice());
+                            System.out.printf("\nWartość koszyka wynosi: %.2f\n\n", userCart.getPrice());
                         }
                         System.out.println("Wpisz odpowiednie wartości, aby wybrać akcję.");
                         System.out.println("Wpisz 1, aby zakupić wszystkie produkty w koszyku");
@@ -147,9 +147,8 @@ public class ZPOApp {
                                 System.out.println("Nie rozpoznano wprowadzonej odpowiedzi: " + userAnswer + ". Powrót do głównego menu...");
                             }
                         } else if (userInputInt == 2) {
-                            assert userCart != null;
                             userCart.clearProducts();
-                            System.out.println("Wyczyszczono koszyk.");
+                            System.out.println("Wyczyszczono koszyk.\n");
                         } else if (userInputInt == 3) {
                             System.out.println("Wpisz ID produktu, który chcesz usunąć.");
                             int productIDToRemove = scanner.nextInt();
@@ -161,7 +160,7 @@ public class ZPOApp {
                             int amountToRemove = scanner.nextInt();
                             scanner.nextLine();
                             userCart.removeProductFromCart(productToRemove, amountToRemove);
-                            System.out.println("Nowa ilość produktu w koszyku: " + userCart.getProductAmount(productToRemove));
+                            System.out.println("Nowa ilość produktu w koszyku: " + userCart.getProductAmount(productToRemove) + "\n");
                         } else if (userInputInt == 0) {
                             continue;
                         }
@@ -182,7 +181,9 @@ public class ZPOApp {
                         userInputInt = scanner.nextInt();
                         scanner.nextLine();
                         if (userInputInt == 1) {
-                            int amount = 1;
+                            System.out.println("Wprowadź ilość produktu, jaką chcesz dodać do koszyka.");
+                            int amount = scanner.nextInt();
+                            scanner.nextLine();
                             userCart.addProductToCart(chosenProduct, amount);
                         } else if (userInputInt == 2) {
                             System.out.println("Brak opcji dodawania opinii o produkcie");

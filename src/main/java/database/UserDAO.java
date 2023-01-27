@@ -66,4 +66,8 @@ public class UserDAO {
         }
         return userList;
     }
+
+    private static void showUserOrderHistory(int userId, Connection connection) {
+
+    }
 }
