@@ -2,6 +2,7 @@ package app;
 
 import database.DBConnection;
 import database.UserDAO;
+import products.Product;
 import users.User;
 
 import java.sql.*;
@@ -48,6 +49,7 @@ public class Functions {
         }
     }
 
+    // Funkcja do wyświetlania kategorii produktów
     public static void showCategories() {
         String sql = "SELECT name FROM zpo.categories";
         try (Connection connection = DBConnection.getConnection()) {
@@ -63,23 +65,16 @@ public class Functions {
     }
 
 
-    public static void showCategoryProducts(String categoryName) {
-        String sql = "SELECT products.name FROM zpo.products\n" +
-                "INNER JOIN categories\n" +
-                "ON products.category_id = categories.id\n" +
-                "WHERE categories.name = '" + categoryName + "';";
-        try (Connection connection = DBConnection.getConnection()) {
-            assert connection != null;
-            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                ResultSet rsShowProducts = preparedStatement.executeQuery();
-                System.out.println("Przedmioty z kategorii " + categoryName + ": ");
-                printResultSet(rsShowProducts);
+    // Funkcja do wyświetlania produktów z danej kategorii na podstawie otrzymanej listy produktów
+    public static void showCategoryProducts(String categoryName, List<Product> productList) {
+        for (Product product : productList) {
+            if (product.getCategory().equals(categoryName)) {
+                System.out.println(product.getName());
             }
-        } catch (SQLException e) {
-            System.out.println("Error printing products: " + e.getMessage());
         }
     }
 
+    // Funkcja do wyświetlania informacji o danym produkcie
     public static void showProductInfo(String productName) {
         String sql = "SELECT products.name, products.description, products.price FROM zpo.products" +
                 " WHERE products.name = '" + productName + "';";
@@ -95,6 +90,7 @@ public class Functions {
         }
     }
 
+    // Funkcja do drukowania wyników komend z MySQL
     public static void printResultSet(ResultSet resultSet) throws SQLException {
         ResultSetMetaData rsmd = resultSet.getMetaData();
         int columnsNumber = rsmd.getColumnCount(); // liczba kolumn
