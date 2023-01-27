@@ -94,16 +94,29 @@ public class ZPOApp {
                     loggedIn = false;
                     continue;
                 } else if (userInputString.equals("Koszyk")) {
-                    // Tutaj trzeba zrobić koszyk, który będzie można clearować lub kupić
-                    System.out.println("Brak implementacji koszyka");
+                    // Najpierw trzeba wyświetlić zawartość koszyka i sumę za wszystkie produkty
+                    // Potem pytamy użytkownika co z tym zrobić
+                    System.out.println("Wpisz 1 aby zakupić wszystkie produkty w koszyku");
+                    System.out.println("Wpisz 2 aby wyczyścić koszyk");
+                    System.out.println("Wpisz 0 aby powrócić do głównego menu");
+                    userInputInt = scanner.nextInt();
+                    scanner.nextLine();
+                    if (userInputInt == 1) {
+                        System.out.println("Należy zaimplementować możliwość zakupu");
+                    } else if (userInputInt == 2) {
+                        System.out.println("Należy zaimplementować czyszczenie koszyka");
+                    } else if (userInputInt == 0) {
+                        continue;
+                    }
                 } else if (userInputString.equals("Historia")) {
                     // Tutaj należy wyświetlić historię zakupów użytkownika
                     System.out.println("Brak implementacji historii zakupów");
                 } else {
                     Functions.showCategoryProducts(userInputString, productList);
-                    System.out.println("Wpisz nazwę produktu aby wyświetlić jego opis");
-                    userInputString = scanner.nextLine();
-                    Functions.showProductInfo(userInputString, productList);
+                    System.out.println("Wpisz ID produktu aby wyświetlić jego opis");
+                    userInputInt = scanner.nextInt();
+                    scanner.nextLine();
+                    Functions.showProductInfo(userInputInt, productList);
                     System.out.println("Wciśnij 1 aby dodać produkt do koszyka.");
                     System.out.println("Wciśnij 2 aby dodać opinię o produkcie.");
                     System.out.println("Wciśnij 0 aby wrócić do głównego menu.");

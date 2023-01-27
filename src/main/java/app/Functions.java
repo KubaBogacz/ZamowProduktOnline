@@ -90,15 +90,15 @@ public class Functions {
     public static void showCategoryProducts(String categoryName, List<Product> productList) {
         for (Product product : productList) {
             if (product.getCategory().equals(categoryName)) {
-                System.out.println(product.getName());
+                System.out.println("ID produktu: " + product.getId() + ", Nazwa produktu: " + product.getName());
             }
         }
     }
 
     // Funkcja do wyświetlania informacji o danym produkcie, należy dodać informację ile osób kupiło produkt
-    public static void showProductInfo(String productName, List<Product> productList) {
+    public static void showProductInfo(int productID, List<Product> productList) {
         for (Product product : productList) {
-            if (product.getName().equals(productName)) {
+            if (product.getId() == productID) {
                 System.out.println(product.toString());
             }
         }
