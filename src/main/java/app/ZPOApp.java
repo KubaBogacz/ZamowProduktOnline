@@ -123,6 +123,9 @@ public class ZPOApp {
                     userInputInt = scanner.nextInt();
                     scanner.nextLine();
                     if (userInputInt == 1) {
+                        System.out.println("Podaj ile sztuk produktu chesz zakupić");
+                        userInputInt = scanner.nextInt();
+                        scanner.nextLine();
                         System.out.println("Brak opcji dodawania rzeczy do koszyka");
                     } else if (userInputInt == 2) {
                         System.out.println("Brak opcji dodawania opinii o produkcie");
