@@ -13,35 +13,33 @@ import java.util.Objects;
 // Funkcja zwracajaca ArrayList Users nie przyjmujac zadnych argumentow - do wywolania na starcie programu
 public class UserDAO {
 
-    public static void addUser(User user) {
-        String sql = "INSERT INTO zpo.users (id, email, password, name, surname, phone_number) VALUES (?, ?, ?, ?, ?, ?)";
-        try (Connection connection = DBConnection.getConnection()) {
-            assert connection != null;
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, user.getId());
-            preparedStatement.setString(2, user.getEmail());
-            preparedStatement.setString(3, user.getPassword());
-            preparedStatement.setString(4, user.getName());
-            preparedStatement.setString(5, user.getSurname());
-            preparedStatement.setInt(6, user.getTelNumber());
-            preparedStatement.executeUpdate();
-            Cart cart = new Cart();
-            cart.setUserId(user.getId());
-        } catch (SQLException e) {
-            System.out.println("Error adding user: " + e.getMessage());
+    public static void addUser(User user, Connection connection) throws SQLException {
+        String sql = "INSERT INTO zpo.users (id, email, password, name, surname, phone_number, user_type) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, user.getId());
+        preparedStatement.setString(2, user.getEmail());
+        preparedStatement.setString(3, user.getPassword());
+        preparedStatement.setString(4, user.getName());
+        preparedStatement.setString(5, user.getSurname());
+        preparedStatement.setInt(6, user.getTelNumber());
+        String userType = null;
+        if (user instanceof Buyer) {
+            userType = "buyer";
+        } else if (user instanceof Seller) {
+            userType = "seller";
         }
+        preparedStatement.setString(7, userType);
+        preparedStatement.executeUpdate();
+        Cart cart = new Cart();
+        cart.setUserId(user.getId());
+        CartDAO.addCart(cart, connection);
     }
 
-        public static List<User> importUsers() {
+    public static List<User> importUsers(Connection connection) throws SQLException {
         String sql = "SELECT * FROM zpo.users";
-        try (Connection connection = DBConnection.getConnection()) {
-            assert connection != null;
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            ResultSet rsUsers = preparedStatement.executeQuery();
-            return createUserList(rsUsers);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        ResultSet rsUsers = preparedStatement.executeQuery();
+        return createUserList(rsUsers);
     }
     private static List<User> createUserList(ResultSet rsUsers) throws SQLException {
         List<User> userList = new ArrayList<>();

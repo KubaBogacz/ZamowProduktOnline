@@ -1,5 +1,9 @@
 package products;
 
+import database.CartDAO;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Cart {
@@ -42,32 +46,38 @@ public class Cart {
         this.price = price;
     }
 
-    public void addProductToCart(Product product) {
+    public void addProductToCart(Product product, int amount) {
+        if (amount < 0) {
+            amount = 0;
+        }
         if (products.contains(product)) {
             int index = products.indexOf(product);
-            amounts.set(index, amounts.get(index) + 1);
+            amounts.set(index, amounts.get(index) + amount);
         } else {
             products.add(product);
-            amounts.add(1);
+            amounts.add(amount);
         }
         updatePrice();
     }
 
-    public void removeProductFromCart(Product product) {
+    public void removeProductFromCart(Product product, int amount) {
+        if (amount < 0) {
+            amount = 0;
+        }
         if (products.contains(product)) {
             int index = products.indexOf(product);
-            int amount = amounts.get(index);
-            if (amount == 1) {
+            int amountInCart = amounts.get(index);
+            if (amountInCart <= amount) {
                 amounts.remove(index);
                 products.remove(index);
-            } else {
-                amounts.set(index, amounts.get(index) - 1);
+            } else if (amountInCart > amount) {
+                amounts.set(index, amounts.get(index) - amount);
             }
             updatePrice();
         }
     }
 
-    public void clearCart() {
+    public void clearProducts() {
         products.clear();
         amounts.clear();
         price = 0.0;
@@ -101,5 +111,17 @@ public class Cart {
             returnString += amounts.get(i);
         }
         return returnString;
+    }
+
+    public int getProductAmount(Product product) {
+        if (products.contains(product)) {
+            int index = products.indexOf(product);
+            return amounts.get(index);
+        }
+        return 0;
+    }
+
+    public void buy(Connection connection) throws SQLException {
+        CartDAO.buyCart(this, connection);
     }
 }

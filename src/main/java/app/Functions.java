@@ -38,7 +38,7 @@ public class Functions {
 
     // Funcja do tworzenia nowego konta, wykorzystuje checkIfEmailTaken
     public boolean createAccount(int id, String email, String password, String name,
-                                 String surname, int telNumber, String userType, List<User> userList) {
+                                 String surname, int telNumber, String userType, List<User> userList, Connection connection) throws SQLException {
         if (checkIfEmailTaken(email, userList)) {
             System.out.println("Podany email jest już zajęty!");
             return false;
@@ -51,7 +51,7 @@ public class Functions {
                 newUser.setName(name);
                 newUser.setSurname(surname);
                 newUser.setTelNumber(telNumber);
-                addUser(newUser);
+                addUser(newUser, connection);
                 // Od razu dodajemy do listy, nie trzeba odświeżać po dodaniu użytkownika
                 userList.add(newUser);
             } else if (Objects.equals(userType, "seller")) {
@@ -62,7 +62,7 @@ public class Functions {
                 newUser.setName(name);
                 newUser.setSurname(surname);
                 newUser.setTelNumber(telNumber);
-                addUser(newUser);
+                addUser(newUser, connection);
                 // Od razu dodajemy do listy, nie trzeba odświeżać po dodaniu użytkownika
                 userList.add(newUser);
             }
@@ -71,25 +71,19 @@ public class Functions {
     }
 
     // Funkcja do wyświetlania kategorii produktów
-    public static void showCategories() {
+    public static void showCategories(Connection connection) throws SQLException {
         String sql = "SELECT name FROM zpo.categories";
-        try (Connection connection = DBConnection.getConnection()) {
-            assert connection != null;
-            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                ResultSet rsShowCategories = preparedStatement.executeQuery();
-                System.out.println("Kategorie produktów:");
-                printResultSet(rsShowCategories);
-            }
-        } catch (SQLException e) {
-            System.out.println("Error printing categories: " + e.getMessage());
-        }
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        ResultSet rsShowCategories = preparedStatement.executeQuery();
+        System.out.println("Kategorie produktów:");
+        printResultSet(rsShowCategories);
     }
 
 
     // Funkcja do wyświetlania produktów z danej kategorii na podstawie otrzymanej listy produktów
     public static void showCategoryProducts(String categoryName, List<Product> productList) {
         for (Product product : productList) {
-            if (product.getCategory().equals(categoryName)) {
+            if (product.getCategory().toLowerCase().equals(categoryName)) {
                 System.out.println("ID produktu: " + product.getId() + ", Nazwa produktu: " + product.getName());
             }
         }

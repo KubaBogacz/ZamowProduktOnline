@@ -3,74 +3,66 @@ package database;
 import products.Cart;
 import products.Product;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 
 public class CartDAO {
 
-    public static void addCart(Cart cart) {
+    public static void addCart(Cart cart, Connection connection) throws SQLException {
         String sql = "INSERT INTO zpo.carts (user_id) VALUES (?)";
-        try (Connection connection = DBConnection.getConnection()) {
-            assert connection != null;
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, cart.getUserId());
-        } catch (SQLException e) {
-            System.out.println("Error adding cart: " + e.getMessage());
-        }
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, cart.getUserId());
     }
-    public static void updateCart(Cart cart) {
+
+    public static void updateCart(Cart cart, Connection connection) throws SQLException {
         String sql = "INSERT INTO zpo.carts (user_id, products, amounts, price) VALUES (?, ?, ?, ?)";
-        try (Connection connection = DBConnection.getConnection()) {
-            assert connection != null;
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, cart.getUserId());
-            preparedStatement.setString(2, cart.productsToDBString());
-            preparedStatement.setString(3, cart.amountsToDBString());
-            preparedStatement.setDouble(4, cart.getPrice());
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println("Error updating cart: " + e.getMessage());
-        }
+        assert connection != null;
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, cart.getUserId());
+        preparedStatement.setString(2, cart.productsToDBString());
+        preparedStatement.setString(3, cart.amountsToDBString());
+        preparedStatement.setDouble(4, cart.getPrice());
+        preparedStatement.executeUpdate();
     }
 
-    public static Cart importCart(int userId, List<Product> products) {
+    public static Cart importCart(int userId, List<Product> products, Connection connection) throws SQLException {
         String sql = "SELECT * FROM zpo.carts WHERE user_id = " + userId + ";";
-        try (Connection connection = DBConnection.getConnection()) {
-            assert connection != null;
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            ResultSet rsCart = preparedStatement.executeQuery();
-            Cart cart = new Cart();
-            while (rsCart.next()) {
-                String[] productsIds = rsCart.getString(2).split(";");
-                String[] amountsParts = rsCart.getString(3).split(";");
-                // Dlugość powyższych Arrayów jest identyczna
-                double price = rsCart.getDouble(4);
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        ResultSet rsCart = preparedStatement.executeQuery();
+        Cart cart = new Cart();
+        while (rsCart.next()) {
+            String[] productsIds = rsCart.getString(2).split(";");
+            String[] amountsParts = rsCart.getString(3).split(";");
+            // Dlugość powyższych Arrayów jest identyczna
+            double price = rsCart.getDouble(4);
 
-                cart.setUserId(userId);
-                cart.setPrice(price);
-
-                Product product = null;
-                int productId;
-                for (int i = 0; i < productsIds.length; i++) {
-                    productId = Integer.parseInt(productsIds[i]);
-                    for (int n = 0; n < products.size(); n++) {
-                        product = products.get(n);
-                        if (product.getId() == productId) {
-                            break;
-                        }
-                    }
-                    for (int j = 0; j < Integer.parseInt(amountsParts[i]); j++) {
-                        cart.addProductToCart(product);
+            cart.setUserId(userId);
+            cart.setPrice(price);
+            Product product = null;
+            int productId;
+            for (int i = 0; i < productsIds.length; i++) {
+                productId = Integer.parseInt(productsIds[i]);
+                for (int n = 0; n < products.size(); n++) {
+                    product = products.get(n);
+                    if (product.getId() == productId) {
+                        break;
                     }
                 }
+                cart.addProductToCart(product, Integer.parseInt(amountsParts[i]));
             }
-            return cart;
-        } catch (SQLException e) {
-            System.out.println("Error importing cart: " + e.getMessage());
         }
-        return null;
+        return cart;
+    }
+
+    public static void buyCart(Cart cart, Connection connection) throws SQLException {
+        String sql = "INSERT INTO zpo.orders (user_id, date, products, amounts, price) VALUES (?, ?, ?, ?, ?)";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, cart.getUserId());
+        preparedStatement.setDate(2, Date.valueOf(java.time.LocalDate.now()));
+        preparedStatement.setString(3, cart.productsToDBString());
+        preparedStatement.setString(4, cart.amountsToDBString());
+        preparedStatement.setDouble(5, cart.getPrice());
+        preparedStatement.executeUpdate();
+        cart.clearProducts();
     }
 }

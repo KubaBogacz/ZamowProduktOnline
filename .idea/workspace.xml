@@ -4,12 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="412f1d1c-db2a-40e6-a18f-3f6458ca7dd5" name="Changes" comment="Dodano Cart">
-      <change afterPath="$PROJECT_DIR$/src/main/java/app/ZPOApp.java" afterDir="false" />
+    <list default="true" id="412f1d1c-db2a-40e6-a18f-3f6458ca7dd5" name="Changes" comment="Stworzono klase ZPOApp zawierajaca petle aplikacji, edytowano Main&#10;&#10;Poprawiono Cart">
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/Functions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/Functions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/ZPOApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/ZPOApp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/database/CartDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/CartDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/database/DBConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/DBConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/ProductDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/ProductDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/database/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/UserDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/products/Cart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/products/Cart.java" afterDir="false" />
     </list>
@@ -66,7 +68,7 @@
     ]
   }
 }</component>
-  <component name="RunManager" selected="Application.DBConnection">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="DBConnection" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="database.DBConnection" />
       <module name="ZamowProduktOnline" />
@@ -102,9 +104,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main" />
         <item itemvalue="Application.DBConnection" />
         <item itemvalue="Application.DbConnector" />
-        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -120,7 +122,7 @@
       <workItem from="1674415843189" duration="9148000" />
       <workItem from="1674808000698" duration="26000" />
       <workItem from="1674809327586" duration="2998000" />
-      <workItem from="1674837496895" duration="10940000" />
+      <workItem from="1674837496895" duration="20114000" />
     </task>
     <task id="LOCAL-00001" summary="Zmieniono:&#10;User jest teraz abstract, nie ma kreatora.&#10;Użytkowników tworzymy tylko jako Buyer albo Seller&#10;&#10;Zmieniono odpowiednio wszystkie metody z tym związane">
       <created>1674844387885</created>
@@ -136,7 +138,14 @@
       <option name="project" value="LOCAL" />
       <updated>1674848669886</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Stworzono klase ZPOApp zawierajaca petle aplikacji, edytowano Main&#10;&#10;Poprawiono Cart">
+      <created>1674850816892</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1674850816892</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -156,7 +165,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Zmieniono:&#10;User jest teraz abstract, nie ma kreatora.&#10;Użytkowników tworzymy tylko jako Buyer albo Seller&#10;&#10;Zmieniono odpowiednio wszystkie metody z tym związane" />
     <MESSAGE value="Dodano Cart" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dodano Cart" />
+    <MESSAGE value="Stworzono klase ZPOApp zawierajaca petle aplikacji, edytowano Main&#10;&#10;Poprawiono Cart" />
+    <option name="LAST_COMMIT_MESSAGE" value="Stworzono klase ZPOApp zawierajaca petle aplikacji, edytowano Main&#10;&#10;Poprawiono Cart" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
