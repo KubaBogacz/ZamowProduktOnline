@@ -1,12 +1,12 @@
 package users;
 
 public class Seller extends User {
-    private final String userType = "buyer";
+    private final String userType = "seller";
 
-    public Seller() {
+    public String getUserType() {
+        return userType;
     }
 
-    public Seller(int id, String email, String password, String name, String surname, int telNumber) {
-        super(id, email, password, name, surname, telNumber);
+    public Seller() {
     }
 }

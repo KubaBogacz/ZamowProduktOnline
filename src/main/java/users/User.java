@@ -1,6 +1,6 @@
 package users;
 
-public class User {
+public abstract class User {
     private int id;
     private String email;
     private String password;
@@ -32,7 +32,9 @@ public class User {
         this.password = password;
     }
 
-    public String getName() { return name; }
+    public String getName() {
+        return name;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -51,17 +53,6 @@ public class User {
     }
 
     public void setTelNumber(int telNumber) {
-        this.telNumber = telNumber;
-    }
-
-    public User() {
-    }
-    public User(int id, String email, String password, String name, String surname, int telNumber) {
-        this.id = id;
-        this.email = email;
-        this.password = password;
-        this.name = name;
-        this.surname = surname;
         this.telNumber = telNumber;
     }
 }

@@ -58,6 +58,7 @@ public class ProductDAO {
             System.out.println("Error updating product: " + e.getMessage());
         }
     }
+
     // Funkcja zwracajaca ArrayList Products nie przyjmujac zadnych argumentow - do wywolania na starcie programu
     public static List<Product> importProducts() {
         String sql = "SELECT * FROM zpo.products";

@@ -7,6 +7,7 @@ import app.Functions;
 
 import java.sql.*;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
@@ -31,7 +32,7 @@ public class Main {
         boolean loggedIn = false;
 
         // Pętla gdy użytkownik nie jest zalogowany
-        while (!loggedIn == false && running) {
+        while (!loggedIn && running) {
             System.out.println("Wciśnij 1 aby się zalogować, 2 aby utworzyć nowe konto, 0 aby zakończyć działanie programu.");
             userInputInt = scanner.nextInt();
             scanner.nextLine();
@@ -58,11 +59,19 @@ public class Main {
                 System.out.println("Podaj numer telefonu:");
                 int userPhoneNumber = scanner.nextInt();
                 scanner.nextLine();
+                System.out.println("Określ, czy zamierzasz cokolwiek sprzedawać na ZPO.pl ('Tak'/'Nie'):");
+                String ans = scanner.nextLine();
+                String userType = "buyer";
+                if (Objects.equals(ans.toLowerCase(), "yes")) {
+                    userType = "seller";
+                } else if (!Objects.equals(ans, "no")) {
+                    System.out.println("Wprowadzono nieprawidłową odpowiedź. Ustawiono wartość domyślną na: Kupujący.");
+                }
                 int lastID = userList.get(userList.size() - 1).getId() + 1;
-                boolean registerCheck = functions.createAccount(lastID, userEmail, userPassword, userFirstName, userLastName, userPhoneNumber, userList);
-                if (registerCheck == true) {
+                boolean registerCheck = functions.createAccount(lastID, userEmail, userPassword, userFirstName, userLastName, userPhoneNumber, userType, userList);
+                if (registerCheck) {
                     System.out.println("Pomyślnie dokonano rejestracji.");
-                } else if (registerCheck == false) {
+                } else if (registerCheck) {
                     System.out.println("Rejestracja nie przebiegła prawidłowo. Spróbuj jeszcze raz.");
                 }
             } // Wyłączenie programu

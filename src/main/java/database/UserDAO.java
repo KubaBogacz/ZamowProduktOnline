@@ -12,7 +12,7 @@ import java.util.Objects;
 // Funkcja zwracajaca ArrayList Users nie przyjmujac zadnych argumentow - do wywolania na starcie programu
 public class UserDAO {
 
-    public void addUser(User user) {
+    public static void addUser(User user) {
         String sql = "INSERT INTO zpo.users (id, email, password, name, surname, phone_number) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection connection = DBConnection.getConnection()) {
             assert connection != null;
@@ -46,9 +46,23 @@ public class UserDAO {
         List<User> userList = new ArrayList<>();
         while (rsUsers.next()) {
             if (Objects.equals(rsUsers.getString(7), "buyer")) {
-                userList.add(new Buyer(rsUsers.getInt(1), rsUsers.getString(2), rsUsers.getString(3), rsUsers.getString(4), rsUsers.getString(5), rsUsers.getInt(6)));
+                Buyer user = new Buyer();
+                user.setId(rsUsers.getInt(1));
+                user.setEmail(rsUsers.getString(2));
+                user.setPassword(rsUsers.getString(3));
+                user.setName(rsUsers.getString(4));
+                user.setSurname(rsUsers.getString(5));
+                user.setTelNumber(rsUsers.getInt(6));
+                userList.add(user);
             } else if (Objects.equals(rsUsers.getString(7), "seller")) {
-                userList.add(new Seller(rsUsers.getInt(1), rsUsers.getString(2), rsUsers.getString(3), rsUsers.getString(4), rsUsers.getString(5), rsUsers.getInt(6)));
+                Seller user = new Seller();
+                user.setId(rsUsers.getInt(1));
+                user.setEmail(rsUsers.getString(2));
+                user.setPassword(rsUsers.getString(3));
+                user.setName(rsUsers.getString(4));
+                user.setSurname(rsUsers.getString(5));
+                user.setTelNumber(rsUsers.getInt(6));
+                userList.add(user);
             }
         }
         return userList;

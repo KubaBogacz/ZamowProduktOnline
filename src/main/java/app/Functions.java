@@ -1,13 +1,16 @@
 package app;
 
 import database.DBConnection;
-import database.UserDAO;
 import products.Product;
+import users.Buyer;
+import users.Seller;
 import users.User;
 
 import java.sql.*;
 import java.util.List;
 import java.util.Objects;
+
+import static database.UserDAO.addUser;
 
 public class Functions {
 
@@ -35,16 +38,34 @@ public class Functions {
 
     // Funcja do tworzenia nowego konta, wykorzystuje checkIfEmailTaken
     public boolean createAccount(int id, String email, String password, String name,
-                                 String surname, int telNumber, List<User> userList) {
+                                 String surname, int telNumber, String userType, List<User> userList) {
         if (checkIfEmailTaken(email, userList)) {
             System.out.println("Podany email jest już zajęty!");
             return false;
         } else {
-            User newUser = new User(id, email, password, name, surname, telNumber);
-            UserDAO userDAO = new UserDAO();
-            userDAO.addUser(newUser);
-            // Od razu dodajemy do listy, nie trzeba odświeżać po dodaniu użytkownika
-            userList.add(newUser);
+            if (Objects.equals(userType, "buyer")) {
+                Buyer newUser = new Buyer();
+                newUser.setId(id);
+                newUser.setEmail(email);
+                newUser.setPassword(password);
+                newUser.setName(name);
+                newUser.setSurname(surname);
+                newUser.setTelNumber(telNumber);
+                addUser(newUser);
+                // Od razu dodajemy do listy, nie trzeba odświeżać po dodaniu użytkownika
+                userList.add(newUser);
+            } else if (Objects.equals(userType, "seller")) {
+                Seller newUser = new Seller();
+                newUser.setId(id);
+                newUser.setEmail(email);
+                newUser.setPassword(password);
+                newUser.setName(name);
+                newUser.setSurname(surname);
+                newUser.setTelNumber(telNumber);
+                addUser(newUser);
+                // Od razu dodajemy do listy, nie trzeba odświeżać po dodaniu użytkownika
+                userList.add(newUser);
+            }
             return true;
         }
     }
