@@ -1,6 +1,7 @@
 package app;
 
 import database.DBConnection;
+import database.ReviewsDAO;
 import products.Product;
 import users.Buyer;
 import users.Seller;
@@ -90,10 +91,11 @@ public class Functions {
     }
 
     // Funkcja do wyświetlania informacji o danym produkcie, należy dodać informację ile osób kupiło produkt
-    public static void showProductInfo(int productID, List<Product> productList) {
+    public static void showProductInfo(int productID, List<Product> productList, Connection connection) throws SQLException {
         for (Product product : productList) {
             if (product.getId() == productID) {
                 System.out.println(product.toString());
+                System.out.println("Średnia ocena: " + ReviewsDAO.avgReviewRating(product, connection));
             }
         }
     }
@@ -112,7 +114,5 @@ public class Functions {
             System.out.println("");
         }
         System.out.println("");
-
     }
-
 }
