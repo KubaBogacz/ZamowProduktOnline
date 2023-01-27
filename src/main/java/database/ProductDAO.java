@@ -14,14 +14,13 @@ public class ProductDAO {
         String sql = "INSERT INTO zpo.products (id, name, price, description, category) VALUES (?, ?, ?, ?, ?)";
         try (Connection connection = DBConnection.getConnection()) {
             assert connection != null;
-            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                preparedStatement.setInt(1, product.getId());
-                preparedStatement.setString(2, product.getName());
-                preparedStatement.setDouble(3, product.getPrice());
-                preparedStatement.setString(4, product.getDescription());
-                preparedStatement.setString(5, product.getCategory());
-                preparedStatement.executeUpdate();
-            }
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, product.getId());
+            preparedStatement.setString(2, product.getName());
+            preparedStatement.setDouble(3, product.getPrice());
+            preparedStatement.setString(4, product.getDescription());
+            preparedStatement.setString(5, product.getCategory());
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error adding product: " + e.getMessage());
         }
@@ -46,14 +45,13 @@ public class ProductDAO {
         String sql = "UPDATE zpo.products SET name = ?, price = ?, description = ?, category = ? WHERE id = ?";
         try (Connection connection = DBConnection.getConnection()) {
             assert connection != null;
-            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                preparedStatement.setString(1, product.getName());
-                preparedStatement.setDouble(2, product.getPrice());
-                preparedStatement.setString(3, product.getDescription());
-                preparedStatement.setString(4, product.getCategory());
-                preparedStatement.setInt(5, product.getId());
-                preparedStatement.executeUpdate();
-            }
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, product.getName());
+            preparedStatement.setDouble(2, product.getPrice());
+            preparedStatement.setString(3, product.getDescription());
+            preparedStatement.setString(4, product.getCategory());
+            preparedStatement.setInt(5, product.getId());
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error updating product: " + e.getMessage());
         }

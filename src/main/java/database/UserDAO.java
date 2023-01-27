@@ -16,15 +16,14 @@ public class UserDAO {
         String sql = "INSERT INTO zpo.users (id, email, password, name, surname, phone_number) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection connection = DBConnection.getConnection()) {
             assert connection != null;
-            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                preparedStatement.setInt(1, user.getId());
-                preparedStatement.setString(2, user.getEmail());
-                preparedStatement.setString(3, user.getPassword());
-                preparedStatement.setString(4, user.getName());
-                preparedStatement.setString(5, user.getSurname());
-                preparedStatement.setInt(6, user.getTelNumber());
-                preparedStatement.executeUpdate();
-            }
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, user.getId());
+            preparedStatement.setString(2, user.getEmail());
+            preparedStatement.setString(3, user.getPassword());
+            preparedStatement.setString(4, user.getName());
+            preparedStatement.setString(5, user.getSurname());
+            preparedStatement.setInt(6, user.getTelNumber());
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error adding user: " + e.getMessage());
         }
@@ -34,10 +33,9 @@ public class UserDAO {
         String sql = "SELECT * FROM zpo.users";
         try (Connection connection = DBConnection.getConnection()) {
             assert connection != null;
-            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                ResultSet rsUsers = preparedStatement.executeQuery();
-                return createUserList(rsUsers);
-            }
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet rsUsers = preparedStatement.executeQuery();
+            return createUserList(rsUsers);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

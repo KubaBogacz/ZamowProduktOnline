@@ -4,16 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="412f1d1c-db2a-40e6-a18f-3f6458ca7dd5" name="Changes" comment="Dodano funkcje:&#10;Functions.login,&#10;Functions.checkIfEmailTaken,&#10;ProductDAO.importProducts,&#10;UserDAO.importUsers;&#10;User: dodano int id,&#10;Product: dodano int id, String category">
+    <list default="true" id="412f1d1c-db2a-40e6-a18f-3f6458ca7dd5" name="Changes" comment="Zmieniono:&#10;User jest teraz abstract, nie ma kreatora.&#10;Użytkowników tworzymy tylko jako Buyer albo Seller&#10;&#10;Zmieniono odpowiednio wszystkie metody z tym związane">
+      <change afterPath="$PROJECT_DIR$/src/main/java/database/CartDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/products/Cart.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/Functions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/Functions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/database/DBConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/DBConnection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/database/ProductDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/ProductDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/database/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/UserDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/users/Buyer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/users/Buyer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/users/Seller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/users/Seller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/users/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/users/User.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,8 +119,16 @@
       <workItem from="1674415843189" duration="9148000" />
       <workItem from="1674808000698" duration="26000" />
       <workItem from="1674809327586" duration="2998000" />
-      <workItem from="1674837496895" duration="4345000" />
+      <workItem from="1674837496895" duration="8561000" />
     </task>
+    <task id="LOCAL-00001" summary="Zmieniono:&#10;User jest teraz abstract, nie ma kreatora.&#10;Użytkowników tworzymy tylko jako Buyer albo Seller&#10;&#10;Zmieniono odpowiednio wszystkie metody z tym związane">
+      <created>1674844387885</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1674844387885</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -139,6 +144,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Zmieniono:&#10;User jest teraz abstract, nie ma kreatora.&#10;Użytkowników tworzymy tylko jako Buyer albo Seller&#10;&#10;Zmieniono odpowiednio wszystkie metody z tym związane" />
+    <option name="LAST_COMMIT_MESSAGE" value="Zmieniono:&#10;User jest teraz abstract, nie ma kreatora.&#10;Użytkowników tworzymy tylko jako Buyer albo Seller&#10;&#10;Zmieniono odpowiednio wszystkie metody z tym związane" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
