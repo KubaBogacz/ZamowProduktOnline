@@ -1,6 +1,7 @@
 package app;
 
 import database.DBConnection;
+import database.UserDAO;
 import users.User;
 
 import java.sql.*;
@@ -31,6 +32,21 @@ public class Functions {
         return false;
     }
 
+    // Funcja do tworzenia nowego konta, wykorzystuje checkIfEmailTaken
+    public boolean createAccount(int id, String email, String password, String name,
+                                 String surname, int telNumber, List<User> userList) {
+        if (checkIfEmailTaken(email, userList)) {
+            System.out.println("Podany email jest już zajęty!");
+            return false;
+        } else {
+            User newUser = new User(id, email, password, name, surname, telNumber);
+            UserDAO userDAO = new UserDAO();
+            userDAO.addUser(newUser);
+            // Od razu dodajemy do listy, nie trzeba odświeżać po dodaniu użytkownika
+            userList.add(newUser);
+            return true;
+        }
+    }
 
     public static void showCategories() {
         String sql = "SELECT name FROM zpo.categories";
@@ -78,8 +94,6 @@ public class Functions {
             System.out.println("Error printing product info: " + e.getMessage());
         }
     }
-
-
 
     public static void printResultSet(ResultSet resultSet) throws SQLException {
         ResultSetMetaData rsmd = resultSet.getMetaData();

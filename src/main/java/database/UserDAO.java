@@ -11,7 +11,26 @@ import java.util.Objects;
 
 // Funkcja zwracajaca ArrayList Users nie przyjmujac zadnych argumentow - do wywolania na starcie programu
 public class UserDAO {
-    public static List<User> importUsers() {
+
+    public void addUser(User user) {
+        String sql = "INSERT INTO zpo.users (id, email, password, name, surname, telNumber) VALUES (?, ?, ?, ?, ?, ?)";
+        try (Connection connection = DBConnection.getConnection()) {
+            assert connection != null;
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setInt(1, user.getId());
+                preparedStatement.setString(2, user.getEmail());
+                preparedStatement.setString(3, user.getPassword());
+                preparedStatement.setString(4, user.getName());
+                preparedStatement.setString(5, user.getSurname());
+                preparedStatement.setInt(6, user.getTelNumber());
+                preparedStatement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            System.out.println("Error adding user: " + e.getMessage());
+        }
+    }
+
+        public static List<User> importUsers() {
         String sql = "SELECT * FROM zpo.users";
         try (Connection connection = DBConnection.getConnection()) {
             assert connection != null;
