@@ -21,7 +21,7 @@ public class CartDAO {
             System.out.println("Error adding cart: " + e.getMessage());
         }
     }
-    public void updateCart(Cart cart) {
+    public static void updateCart(Cart cart) {
         String sql = "INSERT INTO zpo.carts (user_id, products, amounts, price) VALUES (?, ?, ?, ?)";
         try (Connection connection = DBConnection.getConnection()) {
             assert connection != null;

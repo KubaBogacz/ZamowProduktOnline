@@ -1,5 +1,6 @@
 package app;
 
+import database.CartDAO;
 import database.ProductDAO;
 import database.UserDAO;
 import products.Product;
@@ -27,6 +28,8 @@ public class ZPOApp {
         String userInputString;
         int userInputInt;
 
+        User activeUser = null;
+
         boolean running = true;
         boolean loggedIn = false;
 
@@ -41,7 +44,7 @@ public class ZPOApp {
                     String userEmail = scanner.nextLine();
                     System.out.println("Podaj hasło:");
                     String userPassword = scanner.nextLine();
-                    User activeUser = functions.login(userEmail, userPassword, userList);
+                    activeUser = functions.login(userEmail, userPassword, userList);
                     if (activeUser != null) {
                         loggedIn = true;
                     }
@@ -87,6 +90,7 @@ public class ZPOApp {
                 userInputString = scanner.nextLine();
                 // Wylogowanie zalogowanego użytkownika
                 if (userInputString.equals("Wyloguj")) {
+                    CartDAO.updateCart(CartDAO.importCart(activeUser.getId(), productList));
                     loggedIn = false;
                     continue;
                 } else if (userInputString.equals("Koszyk")) {
