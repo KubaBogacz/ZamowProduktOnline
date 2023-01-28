@@ -163,8 +163,7 @@ public class ZPOApp {
                             continue;
                         }
                     } else if (userInputString.equals("historia")) {
-                        // Tutaj należy wyświetlić historię zakupów użytkownika
-                        System.out.println("Brak implementacji historii zakupów");
+                        UserDAO.showUserOrderHistory(activeUser.getId(), connection);
                     } else {
                         Functions.showCategoryProducts(userInputString, productList);
                         System.out.println("Wpisz ID produktu aby wyświetlić jego opis");

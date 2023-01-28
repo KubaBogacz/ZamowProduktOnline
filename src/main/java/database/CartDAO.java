@@ -12,16 +12,19 @@ public class CartDAO {
         String sql = "INSERT INTO zpo.carts (user_id) VALUES (?)";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, cart.getUserId());
+        preparedStatement.executeUpdate();
     }
 
     public static void updateCart(Cart cart, Connection connection) throws SQLException {
-        String sql = "INSERT INTO zpo.carts (user_id, products, amounts, price) VALUES (?, ?, ?, ?)";
-        assert connection != null;
+        String sql;
+        if (cart.getPrice() == 0) {
+            sql = "UPDATE zpo.carts SET products = " + null + ", amounts = " + null + ", price = " + null + " WHERE user_id = " + cart.getUserId() + ";";
+        } else {
+            sql = "UPDATE zpo.carts SET products = " + cart.productsToDBString() +
+                    ", amounts = " + cart.amountsToDBString() + ", price = " + cart.getPrice() +
+                    " WHERE user_id = " + cart.getUserId() + ";";
+        }
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setInt(1, cart.getUserId());
-        preparedStatement.setString(2, cart.productsToDBString());
-        preparedStatement.setString(3, cart.amountsToDBString());
-        preparedStatement.setDouble(4, cart.getPrice());
         preparedStatement.executeUpdate();
     }
 
@@ -31,8 +34,12 @@ public class CartDAO {
         ResultSet rsCart = preparedStatement.executeQuery();
         Cart cart = new Cart();
         while (rsCart.next()) {
-            String[] productsIds = rsCart.getString(2).split(";");
-            String[] amountsParts = rsCart.getString(3).split(";");
+            String[] productsIds = null;
+            String[] amountsParts = null;
+            if (rsCart.getString(2) != null) {
+                 productsIds = rsCart.getString(2).split(";");
+                 amountsParts= rsCart.getString(3).split(";");
+            }
             // Dlugość powyższych Arrayów jest identyczna
             double price = rsCart.getDouble(4);
 
@@ -40,15 +47,17 @@ public class CartDAO {
             cart.setPrice(price);
             Product product = null;
             int productId;
-            for (int i = 0; i < productsIds.length; i++) {
-                productId = Integer.parseInt(productsIds[i]);
-                for (int n = 0; n < products.size(); n++) {
-                    product = products.get(n);
-                    if (product.getId() == productId) {
-                        break;
+            if (productsIds != null) {
+                for (int i = 0; i < productsIds.length; i++) {
+                    productId = Integer.parseInt(productsIds[i]);
+                    for (int n = 0; n < products.size(); n++) {
+                        product = products.get(n);
+                        if (product.getId() == productId) {
+                            break;
+                        }
                     }
+                    cart.addProductToCart(product, Integer.parseInt(amountsParts[i]));
                 }
-                cart.addProductToCart(product, Integer.parseInt(amountsParts[i]));
             }
         }
         return cart;

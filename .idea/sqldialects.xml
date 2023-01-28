@@ -4,6 +4,7 @@
     <file url="file://$PROJECT_DIR$/src/main/java/app/Functions.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/database/CartDAO.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/database/ProductDAO.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/database/ReviewsDAO.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/database/UserDAO.java" dialect="GenericSQL" />
   </component>
 </project>
