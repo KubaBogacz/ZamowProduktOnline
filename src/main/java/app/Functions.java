@@ -1,6 +1,5 @@
 package app;
 
-import database.CategoriesDAO;
 import database.ProductDAO;
 import database.ReviewsDAO;
 import products.Product;
@@ -11,6 +10,7 @@ import users.User;
 import java.sql.*;
 import java.util.List;
 import java.util.Objects;
+import java.util.Scanner;
 
 import static database.UserDAO.addUser;
 
@@ -63,8 +63,7 @@ public class Functions {
      * @return boolean - informacja o powodzeniu działania
      * @throws SQLException - jeśli połączenie z BD jes niepoprawne, bądź nie powiodło się wywołanie polecenia
      */
-    public boolean createAccount(int id, String email, String password, String name,
-                                 String surname, int telNumber, String userType, List<User> userList, Connection connection) throws SQLException {
+    public boolean createAccount(int id, String email, String password, String name, String surname, int telNumber, String userType, List<User> userList, Connection connection) throws SQLException {
         if (checkIfEmailTaken(email, userList)) { // Sprawdzanie, czy podany email jest zajęty
             System.out.println("Podany email jest już zajęty!");
             return false;
@@ -112,6 +111,7 @@ public class Functions {
             System.out.println("Lista kategorii jest pusta.");
         }
     }
+
     /***
      * Metoda drukująca listę produktów z danej kategorii
      * @param categoryName - nazwa kategorii
@@ -159,13 +159,51 @@ public class Functions {
         int columnsNumber = rsmd.getColumnCount(); // liczba kolumn
         while (resultSet.next()) {
             for (int i = 1; i <= columnsNumber; i++) {
-                if (i > 1)
-                    System.out.print(", ");
+                if (i > 1) System.out.print(", ");
                 String columnValue = resultSet.getString(i);
                 System.out.print(rsmd.getColumnName(i) + ": " + columnValue);
             }
             System.out.print("\n");
         }
         System.out.print("\n");
+    }
+
+    /***
+     * Metoda zwracająca produkt o danym ID z listy wszystkich produktów
+     * @param productId - ID produktu
+     * @param productList - zaimportowana z BD lista produktów
+     * @return Product - pobrany produkt
+     */
+    public static Product getProductFromList(int productId, List<Product> productList) {
+        for (Product listProduct : productList) {
+            if (listProduct.getId() == productId) {
+                return listProduct;
+            }
+        }
+        return null;
+    }
+
+    /***
+     * Metoda dodająca nowy produkt do sklepu
+     * @param activeCategory - kategoria, do której zostanie dodany produkt
+     * @param connection - połączenie z BD
+     * @return List<Product> - zaktualizowana lista produktów
+     * @throws SQLException - jeśli połączenie z BD jes niepoprawne, bądź nie powiodło się wywołanie polecenia
+     */
+    public static List<Product> sellerAddProduct(String activeCategory, Connection connection) throws SQLException {
+        Scanner scanner = new Scanner(System.in);
+        Product product = new Product();
+        System.out.println("Podaj nazwę produktu: ");
+        product.setName(scanner.nextLine());
+        System.out.println("Podaj cenę produktu: (separator dziesiętny - ',')");
+        product.setPrice(scanner.nextDouble());
+        scanner.nextLine();
+        System.out.println("Podaj opis produktu: ");
+        product.setDescription(scanner.nextLine());
+        product.setCategory(activeCategory);
+        ProductDAO.addProduct(product, connection);
+        List<Product> productList = ProductDAO.importProducts(connection);
+        System.out.println("Produkt dodany pomyślnie");
+        return productList;
     }
 }

@@ -9,11 +9,12 @@ import java.util.List;
 
 public class Cart {
     private int userId;
-    private List<Product> products = new ArrayList<Product>();
-    private List<Integer> amounts = new ArrayList<Integer>();
+    private List<Product> products = new ArrayList<>();
+    private List<Integer> amounts = new ArrayList<>();
     private double price = 0;
 
-    public void Cart() {}
+    public void Cart() {
+    }
 
     public int getUserId() {
         return userId;
@@ -129,7 +130,7 @@ public class Cart {
      */
     public String amountsToDBString() {
         String returnString = "";
-        for (int i=0;i<amounts.size();i++) {
+        for (int i = 0; i < amounts.size(); i++) {
             if (i != 0) {
                 returnString += ";";
             }

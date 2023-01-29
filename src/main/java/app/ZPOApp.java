@@ -8,28 +8,12 @@ import users.User;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class ZPOApp {
-
-    /***
-     * Metoda zwracająca produkt o danym ID z listy wszystkich produktów
-     * @param productId - ID produktu
-     * @param productList - zaimportowana z BD lista produktów
-     * @return Product - pobrany produkt
-     */
-    private static Product getProductFromList(int productId, List<Product> productList) {
-        for (Product listProduct : productList) {
-            if (listProduct.getId() == productId) {
-                return listProduct;
-            }
-        }
-        return null;
-    }
 
     /***
      * Metoda obsługująca pętlę aplikacji
@@ -41,7 +25,7 @@ public class ZPOApp {
             List<User> userList = UserDAO.importUsers(connection);
             List<Product> productList = ProductDAO.importProducts(connection);
             List<String> categoriesList = CategoriesDAO.importCategories(connection);
-            List<String> lowerCaseCategoriesList = new ArrayList<String>();
+            List<String> lowerCaseCategoriesList = new ArrayList<>();
             for (String category : categoriesList) {
                 lowerCaseCategoriesList.add(category.toLowerCase());
             }
@@ -180,15 +164,19 @@ public class ZPOApp {
                             case 3 -> {
                                 System.out.println("Wpisz ID produktu, który chcesz usunąć.");
                                 int productIDToRemove = scanner.nextInt();
-                                Product productToRemove = getProductFromList(productIDToRemove, productList);
+                                Product productToRemove = Functions.getProductFromList(productIDToRemove, productList);
                                 scanner.nextLine();
-                                System.out.println("Wybrany produkt: " + productToRemove.getName());
-                                System.out.println("Ilość w koszyku: " + userCart.getProductAmount(productToRemove));
-                                System.out.println("Wpisz ilość produktu, którą chcesz usunąć z koszyka.");
-                                int amountToRemove = scanner.nextInt();
-                                scanner.nextLine();
-                                userCart.removeProductFromCart(productToRemove, amountToRemove);
-                                System.out.println("Nowa ilość produktu w koszyku: " + userCart.getProductAmount(productToRemove) + "\n");
+                                if (productToRemove != null) {
+                                    System.out.println("Wybrany produkt: " + productToRemove.getName());
+                                    System.out.println("Ilość w koszyku: " + userCart.getProductAmount(productToRemove));
+                                    System.out.println("Wpisz ilość produktu, którą chcesz usunąć z koszyka.");
+                                    int amountToRemove = scanner.nextInt();
+                                    scanner.nextLine();
+                                    userCart.removeProductFromCart(productToRemove, amountToRemove);
+                                    System.out.println("Nowa ilość produktu w koszyku: " + userCart.getProductAmount(productToRemove) + "\n");
+                                } else {
+                                    System.out.println("Produkt o wprowadzonym ID nie istnieje w Twoim koszyku!");
+                                }
                             }
                         }
 
@@ -200,58 +188,58 @@ public class ZPOApp {
                     } else if (lowerCaseCategoriesList.contains(userInputString)) {
                         String activeCategory = userInputString;
                         if (Functions.showCategoryProducts(activeCategory, productList)) {
-                            System.out.println("Wpisz ID produktu, aby wyświetlić możliwe akcje.");
+                            if (activeUser instanceof Seller) {
+                                System.out.println("Wpisz ID produktu, aby wyświetlić możliwe akcje, albo 0, by dodać nowy produkt tej kategorii do sklepu.");
+                            } else {
+                                System.out.println("Wpisz ID produktu, aby wyświetlić możliwe akcje.");
+                            }
                             userInputInt = scanner.nextInt();
                         } else { // Nie ma produktów w podanej kategorii.
-                            System.out.println("W kategorii %s nie istnieje produkt o ID: %d");
+                            System.out.print("W kategorii %s nie istnieje żaden produkt.");
+                            if (activeUser instanceof Seller) {
+                                System.out.println("Czy chcesz dodać nowy produkt? ('Tak'/'Nie')");
+                                String userAnswer = scanner.nextLine().toLowerCase();
+                                if (userAnswer.equalsIgnoreCase("tak")) {
+                                    productList = Functions.sellerAddProduct(activeCategory, connection);
+                                } else if (userAnswer.equals("nie")) {
+                                    continue;
+                                }
+                                System.out.println("Nie rozpoznano wprowadzonej odpowiedzi: " + userAnswer + ". Powrót do głównego menu...");
+                            }
                             continue;
                         }
+                        if (userInputInt == 0) {
+                            productList = Functions.sellerAddProduct(activeCategory, connection);
+                        } else {
+                            int productId = userInputInt;
+                            Product chosenProduct = Functions.getProductFromList(productId, productList);
+                            Functions.showProductInfo(userInputInt, productList, connection);
+                            System.out.println("\nWciśnij 1, aby dodać produkt do koszyka.");
+                            System.out.println("Wciśnij 2, aby dodać opinię o produkcie.");
+                            System.out.println("Wciśnij 3, aby wyświetlić opinie o produkcie");
+                            System.out.println("Wciśnij 0, aby wrócić do głównego menu.");
+                            userInputInt = scanner.nextInt();
+                            scanner.nextLine();
 
-                        int productId = userInputInt;
-                        Product chosenProduct = getProductFromList(productId, productList);
-                        Functions.showProductInfo(userInputInt, productList, connection);
-                        System.out.println("\nWciśnij 1, aby dodać produkt do koszyka.");
-                        System.out.println("Wciśnij 2, aby dodać opinię o produkcie.");
-                        System.out.println("Wciśnij 3, aby wyświetlić opinie o produkcie");
-                        System.out.println("Wciśnij 4, aby dodać nowy produkt.");
-                        System.out.println("Wciśnij 0, aby wrócić do głównego menu.");
-                        userInputInt = scanner.nextInt();
-                        scanner.nextLine();
-
-                        switch (userInputInt) {
-                            case 1 -> {
-                                System.out.println("Wprowadź ilość produktu, jaką chcesz dodać do koszyka.");
-                                int amount = scanner.nextInt();
-                                scanner.nextLine();
-                                userCart.addProductToCart(chosenProduct, amount);
-                            }
-                            case 2 -> {
-                                System.out.println("Podaj na ile oceniasz produkt (od 1 do 10):");
-                                userInputDouble = scanner.nextDouble();
-                                scanner.nextLine();
-                                System.out.println("Napisz co sądzisz o produkcie:");
-                                userInputString = scanner.nextLine();
-                                ReviewsDAO.addReview(activeUser, chosenProduct, userInputString, userInputDouble, connection);
-                            }
-                            case 3 -> {
-                                ReviewsDAO.showReviews(chosenProduct, connection);
-                            }
-                            case 4 -> {
-                                if (activeUser instanceof Seller) {
-                                    Product product = new Product();
-                                    System.out.println("Podaj nazwę produktu: ");
-                                    product.setName(scanner.nextLine());
-                                    System.out.println("Podaj cenę produktu: (separator dziesiętny - ',')");
-                                    product.setPrice(scanner.nextDouble());
+                            switch (userInputInt) {
+                                case 1 -> {
+                                    System.out.println("Wprowadź ilość produktu, jaką chcesz dodać do koszyka.");
+                                    int amount = scanner.nextInt();
                                     scanner.nextLine();
-                                    System.out.println("Podaj opis produktu: ");
-                                    product.setDescription(scanner.nextLine());
-                                    product.setCategory(activeCategory);
-                                    ProductDAO.addProduct(product, connection);
-                                    productList = ProductDAO.importProducts(connection);
-                                    System.out.println("Produkt dodany pomyślnie");
-                                } else {
-                                    System.out.println("Nie masz uprawnienia do wystawiania przedmiotów na sprzedaż.");
+                                    userCart.addProductToCart(chosenProduct, amount);
+                                }
+                                case 2 -> {
+                                    System.out.println("Podaj na ile oceniasz produkt (od 1 do 10):");
+                                    userInputDouble = scanner.nextDouble();
+                                    scanner.nextLine();
+                                    System.out.println("Napisz co sądzisz o produkcie:");
+                                    userInputString = scanner.nextLine();
+                                    ReviewsDAO.addReview(activeUser, chosenProduct, userInputString, userInputDouble, connection);
+                                }
+                                case 3 -> {
+                                    if (chosenProduct != null) {
+                                        ReviewsDAO.showReviews(chosenProduct, connection);
+                                    }
                                 }
                             }
                         }

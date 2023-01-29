@@ -32,9 +32,7 @@ public class CartDAO {
         if (cart.getPrice() == 0) {
             sql = "UPDATE zpo.carts SET products = " + null + ", amounts = " + null + ", price = " + null + " WHERE user_id = " + cart.getUserId() + ";";
         } else {
-            sql = "UPDATE zpo.carts SET products = " + cart.productsToDBString() +
-                    ", amounts = " + cart.amountsToDBString() + ", price = " + cart.getPrice() +
-                    " WHERE user_id = " + cart.getUserId() + ";";
+            sql = "UPDATE zpo.carts SET products = " + cart.productsToDBString() + ", amounts = " + cart.amountsToDBString() + ", price = " + cart.getPrice() + " WHERE user_id = " + cart.getUserId() + ";";
         }
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.executeUpdate();
@@ -57,8 +55,8 @@ public class CartDAO {
             String[] productsIds = null;
             String[] amountsParts = null;
             if (rsCart.getString(2) != null) {
-                 productsIds = rsCart.getString(2).split(";");
-                 amountsParts= rsCart.getString(3).split(";");
+                productsIds = rsCart.getString(2).split(";");
+                amountsParts = rsCart.getString(3).split(";");
             }
             // Dlugość powyższych Arrayów jest identyczna
             double price = rsCart.getDouble(4);
@@ -70,8 +68,8 @@ public class CartDAO {
             if (productsIds != null) {
                 for (int i = 0; i < productsIds.length; i++) {
                     productId = Integer.parseInt(productsIds[i]);
-                    for (int n = 0; n < products.size(); n++) {
-                        product = products.get(n);
+                    for (Product value : products) {
+                        product = value;
                         if (product.getId() == productId) {
                             break;
                         }

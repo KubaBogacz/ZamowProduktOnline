@@ -4,19 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="412f1d1c-db2a-40e6-a18f-3f6458ca7dd5" name="Changes" comment="Wozki dzialaja, historia dziala, recenzje dzialaja, wszystko poza sellerem dziala">
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+    <list default="true" id="412f1d1c-db2a-40e6-a18f-3f6458ca7dd5" name="Changes" comment="Poprawiono troche i zmieniono troche pzdr">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/app/Functions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/Functions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/app/ZPOApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/ZPOApp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/database/CartDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/CartDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/database/CategoriesDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/CategoriesDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/database/DBConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/DBConnection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/database/ProductDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/ProductDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/ReviewsDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/ReviewsDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/UserDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/products/Cart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/products/Cart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/products/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/products/Product.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,8 +38,8 @@
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
-        <option name="accountId" value="33a9cd3e-92fa-40bd-bb01-edb13d27825a" />
-        <option name="url" value="https://github.com/KubaBogacz/ZamowProduktOnline.git" />
+        <option name="accountId" value="14ab41d6-a8d0-48ac-a80c-e916de45e0df" />
+        <option name="url" value="https://github.com/KubaBogacz/ZamowProduktOnline" />
       </UrlAndAccount>
     </option>
   </component>
@@ -138,6 +135,7 @@
       <workItem from="1674565151593" duration="1102000" />
       <workItem from="1674581036397" duration="2005000" />
       <workItem from="1674766498247" duration="7989000" />
+      <workItem from="1675023189011" duration="2344000" />
     </task>
     <task id="LOCAL-00001" summary="Non">
       <created>1674565371111</created>
@@ -153,7 +151,14 @@
       <option name="project" value="LOCAL" />
       <updated>1674768930732</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Poprawiono funkcjonalność, dodano dokumentację, zmieniono sposób przechowywania danych o kategorii">
+      <created>1675022688952</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1675022688952</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -190,7 +195,9 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Non" />
     <MESSAGE value="test" />
-    <option name="LAST_COMMIT_MESSAGE" value="test" />
+    <MESSAGE value="Poprawiono funkcjonalność, dodano dokumentację, zmieniono sposób przechowywania danych o kategorii" />
+    <MESSAGE value="Poprawiono troche i zmieniono troche pzdr" />
+    <option name="LAST_COMMIT_MESSAGE" value="Poprawiono troche i zmieniono troche pzdr" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

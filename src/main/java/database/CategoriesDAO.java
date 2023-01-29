@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class CategoriesDAO {
 
     /***
@@ -18,7 +17,7 @@ public class CategoriesDAO {
      */
     public static List<String> importCategories(Connection connection) throws SQLException {
         String sql = "SELECT * FROM zpo.categories";
-        PreparedStatement preparedStatement = connection.prepareStatement(sql) ;
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
         ResultSet rsCategories = preparedStatement.executeQuery();
         List<String> categoriesList = new ArrayList<>();
         while (rsCategories.next()) {
