@@ -6,18 +6,19 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static database.CategoriesDAO.getCategoryName;
+
 
 public class ProductDAO {
 
     // Funkcja dodająca produkty do BD
-    public void addProduct(Product product, Connection connection) throws SQLException {
-        String sql = "INSERT INTO zpo.products (id, name, price, description, category) VALUES (?, ?, ?, ?, ?)";
+    public static void addProduct(Product product, Connection connection) throws SQLException {
+        String sql = "INSERT INTO zpo.products(name, price, description, category) VALUES (?, ?, ?, ?)";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setInt(1, product.getId());
-        preparedStatement.setString(2, product.getName());
-        preparedStatement.setDouble(3, product.getPrice());
-        preparedStatement.setString(4, product.getDescription());
-        preparedStatement.setString(5, product.getCategory());
+        preparedStatement.setString(1, product.getName());
+        preparedStatement.setDouble(2, product.getPrice());
+        preparedStatement.setString(3, product.getDescription());
+        preparedStatement.setString(4, product.getCategory());
         preparedStatement.executeUpdate();
     }
 
@@ -51,21 +52,10 @@ public class ProductDAO {
     private static List<Product> createProductList(ResultSet rsProducts, Connection connection) throws SQLException {
         List<Product> productList = new ArrayList<>();
         while (rsProducts.next()) {
-            int categoryId = rsProducts.getInt(5);
-            String categoryName = getCategoryName(categoryId, connection);
-            productList.add(new Product(rsProducts.getInt(1), rsProducts.getString(2), rsProducts.getDouble(3), rsProducts.getString(4), categoryName));
+            productList.add(new Product(rsProducts.getInt(1), rsProducts.getString(2),
+                    rsProducts.getDouble(3), rsProducts.getString(4), rsProducts.getString(5)));
         }
         return productList;
-    }
-
-    private static String getCategoryName(int categoryId, Connection connection) throws SQLException {
-        String sql = "SELECT name FROM zpo.categories WHERE id = " + categoryId;
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        ResultSet rsName = preparedStatement.executeQuery();
-        while (rsName.next()) {
-            return rsName.getString(1);
-        }
-        return null;
     }
 }
 

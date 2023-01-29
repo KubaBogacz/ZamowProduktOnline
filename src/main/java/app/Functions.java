@@ -1,6 +1,6 @@
 package app;
 
-import database.DBConnection;
+import database.CategoriesDAO;
 import database.ReviewsDAO;
 import products.Product;
 import users.Buyer;
@@ -73,21 +73,31 @@ public class Functions {
 
     // Funkcja do wyświetlania kategorii produktów
     public static void showCategories(Connection connection) throws SQLException {
-        String sql = "SELECT name FROM zpo.categories";
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        ResultSet rsShowCategories = preparedStatement.executeQuery();
-        System.out.println("Kategorie produktów:");
-        printResultSet(rsShowCategories);
+        int increment = 1;
+        List<String> categoriesList = CategoriesDAO.importCategories(connection);
+        System.out.println("\nLista kategorii:");
+        if (!categoriesList.isEmpty()) {
+        for (String categoryName : categoriesList) {
+            System.out.println((increment++) + ". " + categoryName);
+            }
+        } else {
+            System.out.println("Lista kategorii jest pusta.");
+        }
     }
 
-
     // Funkcja do wyświetlania produktów z danej kategorii na podstawie otrzymanej listy produktów
-    public static void showCategoryProducts(String categoryName, List<Product> productList) {
+    public static boolean showCategoryProducts(String categoryName, List<Product> productList) {
+        boolean productFound = false;
         for (Product product : productList) {
             if (product.getCategory().toLowerCase().equals(categoryName)) {
                 System.out.println("ID produktu: " + product.getId() + ", Nazwa produktu: " + product.getName());
+                productFound = true;
             }
         }
+        if (!productFound) {
+            System.out.println("Brak produktów w podanej kategorii");
+        }
+        return productFound;
     }
 
     // Funkcja do wyświetlania informacji o danym produkcie, należy dodać informację ile osób kupiło produkt
@@ -111,8 +121,10 @@ public class Functions {
                 String columnValue = resultSet.getString(i);
                 System.out.print(rsmd.getColumnName(i) + ": " + columnValue);
             }
-            System.out.println("");
+            System.out.print("\n");
         }
-        System.out.println("");
+        System.out.print("\n");
     }
+
+    // Funkcja do drukowania wynki
 }

@@ -4,13 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="412f1d1c-db2a-40e6-a18f-3f6458ca7dd5" name="Changes" comment="Zmieniono w sumie wszystko :)">
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+    <list default="true" id="412f1d1c-db2a-40e6-a18f-3f6458ca7dd5" name="Changes" comment="test">
+      <change afterPath="$PROJECT_DIR$/src/main/java/database/CategoriesDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/Functions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/Functions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/app/ZPOApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/ZPOApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/CartDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/CartDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/DBConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/DBConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/UserDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/ProductDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/ProductDAO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +25,22 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="33a9cd3e-92fa-40bd-bb01-edb13d27825a" />
+        <option name="url" value="https://github.com/KubaBogacz/ZamowProduktOnline.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$USER_HOME$/AppData/Local/Programs/Eclipse Adoptium/jdk-17.0.4.101-hotspot/lib/src.zip!/java.sql/java/sql/DriverManager.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -49,7 +64,6 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Cheehee/IdeaProjects/JDBC Projekt Kawa&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -117,46 +131,25 @@
       <updated>1674399785245</updated>
       <workItem from="1674399786379" duration="7192000" />
       <workItem from="1674415843189" duration="9148000" />
-      <workItem from="1674808000698" duration="26000" />
-      <workItem from="1674809327586" duration="2998000" />
-      <workItem from="1674837496895" duration="25116000" />
+      <workItem from="1674565151593" duration="1102000" />
+      <workItem from="1674581036397" duration="2005000" />
+      <workItem from="1674766498247" duration="7989000" />
     </task>
-    <task id="LOCAL-00001" summary="Zmieniono:&#10;User jest teraz abstract, nie ma kreatora.&#10;Użytkowników tworzymy tylko jako Buyer albo Seller&#10;&#10;Zmieniono odpowiednio wszystkie metody z tym związane">
-      <created>1674844387885</created>
+    <task id="LOCAL-00001" summary="Non">
+      <created>1674565371111</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1674844387885</updated>
+      <updated>1674565371111</updated>
     </task>
-    <task id="LOCAL-00002" summary="Dodano Cart">
-      <created>1674848669886</created>
+    <task id="LOCAL-00002" summary="test">
+      <created>1674768930732</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1674848669886</updated>
+      <updated>1674768930732</updated>
     </task>
-    <task id="LOCAL-00003" summary="Stworzono klase ZPOApp zawierajaca petle aplikacji, edytowano Main&#10;&#10;Poprawiono Cart">
-      <created>1674850816892</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1674850816892</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Zmieniono w sumie wszystko :)">
-      <created>1674860144215</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1674860144215</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Zmieniono w sumie wszystko :)">
-      <created>1674861957290</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1674861957290</updated>
-    </task>
-    <option name="localTasksCounter" value="6" />
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -167,18 +160,33 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Zmieniono:&#10;User jest teraz abstract, nie ma kreatora.&#10;Użytkowników tworzymy tylko jako Buyer albo Seller&#10;&#10;Zmieniono odpowiednio wszystkie metody z tym związane" />
-    <MESSAGE value="Dodano Cart" />
-    <MESSAGE value="Stworzono klase ZPOApp zawierajaca petle aplikacji, edytowano Main&#10;&#10;Poprawiono Cart" />
-    <MESSAGE value="Zmieniono w sumie wszystko :)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Zmieniono w sumie wszystko :)" />
+    <MESSAGE value="Non" />
+    <MESSAGE value="test" />
+    <option name="LAST_COMMIT_MESSAGE" value="test" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
