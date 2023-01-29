@@ -4,12 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="412f1d1c-db2a-40e6-a18f-3f6458ca7dd5" name="Changes" comment="test">
-      <change afterPath="$PROJECT_DIR$/src/main/java/database/CategoriesDAO.java" afterDir="false" />
+    <list default="true" id="412f1d1c-db2a-40e6-a18f-3f6458ca7dd5" name="Changes" comment="Wozki dzialaja, historia dziala, recenzje dzialaja, wszystko poza sellerem dziala">
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/app/Functions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/Functions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/app/ZPOApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/ZPOApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/CartDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/CartDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/CategoriesDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/CategoriesDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/DBConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/DBConnection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/database/ProductDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/ProductDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/ReviewsDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/ReviewsDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/UserDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/products/Cart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/products/Cart.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,9 +45,6 @@
         <option name="url" value="https://github.com/KubaBogacz/ZamowProduktOnline.git" />
       </UrlAndAccount>
     </option>
-  </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="jar://$USER_HOME$/AppData/Local/Programs/Eclipse Adoptium/jdk-17.0.4.101-hotspot/lib/src.zip!/java.sql/java/sql/DriverManager.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />

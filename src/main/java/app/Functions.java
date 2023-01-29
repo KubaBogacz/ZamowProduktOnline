@@ -1,6 +1,7 @@
 package app;
 
 import database.CategoriesDAO;
+import database.ProductDAO;
 import database.ReviewsDAO;
 import products.Product;
 import users.Buyer;
@@ -15,7 +16,13 @@ import static database.UserDAO.addUser;
 
 public class Functions {
 
-    // Funkcja do logowania. Zwraca Usera - mozna ustawic w petli Appki jako ActiveUser, czy cos - zeby sledzic, ktorym userem jest uzytkownik
+    /***
+     * Metoda obsługująca logowanie na konto
+     * @param email - email użytkownika
+     * @param password - hasło użytkownika
+     * @param userList - lista użytkowników
+     * @return User - w przypadku powodzenia, użytkownik o zgodnym emailu i haśle z podanymi
+     */
     public User login(String email, String password, List<User> userList) {
         for (User checkedUser : userList) {
             if (Objects.equals(checkedUser.getEmail(), email) && Objects.equals(checkedUser.getPassword(), password)) {
@@ -27,7 +34,12 @@ public class Functions {
         return null;
     }
 
-    // Funkcja do sprawdzania, czy email istnieje w DB - jesli true, odmawiamy zalozenia konta, jesli false - dopuszczamy
+    /***
+     * Metoda sprawdzająca, czy dany adres email jest zajęty przez inne konto
+     * @param email - sprawdzany email
+     * @param userList - lista użytkowników
+     * @return boolean - informacja o tym, czy email jest zajęty (true) czy nie (false)
+     */
     public boolean checkIfEmailTaken(String email, List<User> userList) {
         for (User checkedUser : userList) {
             if (Objects.equals(checkedUser.getEmail(), email)) {
@@ -37,10 +49,23 @@ public class Functions {
         return false;
     }
 
-    // Funcja do tworzenia nowego konta, wykorzystuje checkIfEmailTaken
+    /***
+     * Metoda tworząca nowe konto użytkownika
+     * @param id - id nowego użytkownika
+     * @param email - email nowego użytkownika
+     * @param password - hasło nowego użytkownika
+     * @param name - imię nowego użytkownika
+     * @param surname - nazwisko nowego użytkownika
+     * @param telNumber - nr telefonu nowego użytkownika
+     * @param userType - typ nowego użytkownika ("buyer"/"seller")
+     * @param userList - lista wszystkich użytkowników
+     * @param connection - połączenie z BD
+     * @return boolean - informacja o powodzeniu działania
+     * @throws SQLException - jeśli połączenie z BD jes niepoprawne, bądź nie powiodło się wywołanie polecenia
+     */
     public boolean createAccount(int id, String email, String password, String name,
                                  String surname, int telNumber, String userType, List<User> userList, Connection connection) throws SQLException {
-        if (checkIfEmailTaken(email, userList)) {
+        if (checkIfEmailTaken(email, userList)) { // Sprawdzanie, czy podany email jest zajęty
             System.out.println("Podany email jest już zajęty!");
             return false;
         } else {
@@ -53,7 +78,7 @@ public class Functions {
                 newUser.setSurname(surname);
                 newUser.setTelNumber(telNumber);
                 addUser(newUser, connection);
-                // Od razu dodajemy do listy, nie trzeba odświeżać po dodaniu użytkownika
+                // Od razu dodajemy do listy użytkowników
                 userList.add(newUser);
             } else if (Objects.equals(userType, "seller")) {
                 Seller newUser = new Seller();
@@ -64,28 +89,35 @@ public class Functions {
                 newUser.setSurname(surname);
                 newUser.setTelNumber(telNumber);
                 addUser(newUser, connection);
-                // Od razu dodajemy do listy, nie trzeba odświeżać po dodaniu użytkownika
+                // Od razu dodajemy do listy użytkowników
                 userList.add(newUser);
             }
             return true;
         }
     }
 
-    // Funkcja do wyświetlania kategorii produktów
-    public static void showCategories(Connection connection) throws SQLException {
+    /***
+     * Metoda drukująca kategorie dostępne w sklepie
+     * @param categoriesList - zaimportowana z BD lista kategorii
+     */
+    public static void showCategories(List<String> categoriesList) {
         int increment = 1;
-        List<String> categoriesList = CategoriesDAO.importCategories(connection);
         System.out.println("\nLista kategorii:");
         if (!categoriesList.isEmpty()) {
-        for (String categoryName : categoriesList) {
-            System.out.println((increment++) + ". " + categoryName);
+            for (String categoryName : categoriesList) {
+                System.out.println((increment++) + ". " + categoryName);
             }
+            System.out.print("\n");
         } else {
             System.out.println("Lista kategorii jest pusta.");
         }
     }
-
-    // Funkcja do wyświetlania produktów z danej kategorii na podstawie otrzymanej listy produktów
+    /***
+     * Metoda drukująca listę produktów z danej kategorii
+     * @param categoryName - nazwa kategorii
+     * @param productList - lista produktów zaimportowana z BD
+     * @return boolean - informacja o powodzeniu działania
+     */
     public static boolean showCategoryProducts(String categoryName, List<Product> productList) {
         boolean productFound = false;
         for (Product product : productList) {
@@ -100,17 +132,28 @@ public class Functions {
         return productFound;
     }
 
-    // Funkcja do wyświetlania informacji o danym produkcie, należy dodać informację ile osób kupiło produkt
+    /***
+     * Metoda wyświetlająca informacje o danym produkcie.
+     * @param productID - ID produktu
+     * @param productList - lista produktów
+     * @param connection - połączenie z BD
+     * @throws SQLException - jeśli połączenie z BD jes niepoprawne, bądź nie powiodło się wywołanie polecenia
+     */
     public static void showProductInfo(int productID, List<Product> productList, Connection connection) throws SQLException {
         for (Product product : productList) {
             if (product.getId() == productID) {
                 System.out.println(product.toString());
+                System.out.println("Liczba sprzedanych sztuk: " + ProductDAO.getSoldAmount(product, connection));
                 System.out.println("Średnia ocena: " + ReviewsDAO.avgReviewRating(product, connection));
             }
         }
     }
 
-    // Funkcja do drukowania wyników komend z MySQL
+    /***
+     * Metoda drukująca wyniki SELECT z BD MySQL
+     * @param resultSet - tabela do wydrukowania
+     * @throws SQLException - jeśli połączenie z BD jes niepoprawne, bądź nie powiodło się wywołanie polecenia
+     */
     public static void printResultSet(ResultSet resultSet) throws SQLException {
         ResultSetMetaData rsmd = resultSet.getMetaData();
         int columnsNumber = rsmd.getColumnCount(); // liczba kolumn
@@ -125,6 +168,4 @@ public class Functions {
         }
         System.out.print("\n");
     }
-
-    // Funkcja do drukowania wynki
 }

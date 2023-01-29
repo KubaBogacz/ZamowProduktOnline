@@ -9,12 +9,19 @@ import users.User;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class ZPOApp {
 
+    /***
+     * Metoda zwracająca produkt o danym ID z listy wszystkich produktów
+     * @param productId - ID produktu
+     * @param productList - zaimportowana z BD lista produktów
+     * @return Product - pobrany produkt
+     */
     private static Product getProductFromList(int productId, List<Product> productList) {
         for (Product listProduct : productList) {
             if (listProduct.getId() == productId) {
@@ -24,13 +31,20 @@ public class ZPOApp {
         return null;
     }
 
-    public static void run() throws SQLException {
+    /***
+     * Metoda obsługująca pętlę aplikacji
+     */
+    public static void run() {
         try (Connection connection = DBConnection.getConnection()) {
             assert connection != null;
 
             List<User> userList = UserDAO.importUsers(connection);
             List<Product> productList = ProductDAO.importProducts(connection);
             List<String> categoriesList = CategoriesDAO.importCategories(connection);
+            List<String> lowerCaseCategoriesList = new ArrayList<String>();
+            for (String category : categoriesList) {
+                lowerCaseCategoriesList.add(category.toLowerCase());
+            }
 
             Functions functions = new Functions();
             Scanner scanner = new Scanner(System.in);
@@ -113,7 +127,7 @@ public class ZPOApp {
 
                     // Gdy użytkownik jest zalogowany, wybór akcji
                 } else {
-                    Functions.showCategories(connection);
+                    Functions.showCategories(categoriesList);
                     System.out.println("Wpisz nazwę kategorii, aby wyświetlić znajdujące się w niej produkty.");
                     System.out.println("Wpisz 'Koszyk', aby wyświetlić zawartość swojego koszyka");
                     System.out.println("Wpisz 'Historia', aby zobaczyć historię swoich zakupów");
@@ -183,19 +197,20 @@ public class ZPOApp {
                         UserDAO.showUserOrderHistory(activeUser.getId(), connection);
 
                         // Działania po wybraniu kategorii
-                    } else if (categoriesList.contains(userInputString)) {
+                    } else if (lowerCaseCategoriesList.contains(userInputString)) {
                         String activeCategory = userInputString;
                         if (Functions.showCategoryProducts(activeCategory, productList)) {
                             System.out.println("Wpisz ID produktu, aby wyświetlić możliwe akcje.");
                             userInputInt = scanner.nextInt();
                         } else { // Nie ma produktów w podanej kategorii.
-                            userInputInt = 0;
+                            System.out.println("W kategorii %s nie istnieje produkt o ID: %d");
+                            continue;
                         }
 
                         int productId = userInputInt;
                         Product chosenProduct = getProductFromList(productId, productList);
                         Functions.showProductInfo(userInputInt, productList, connection);
-                        System.out.println("Wciśnij 1, aby dodać produkt do koszyka.");
+                        System.out.println("\nWciśnij 1, aby dodać produkt do koszyka.");
                         System.out.println("Wciśnij 2, aby dodać opinię o produkcie.");
                         System.out.println("Wciśnij 3, aby wyświetlić opinie o produkcie");
                         System.out.println("Wciśnij 4, aby dodać nowy produkt.");

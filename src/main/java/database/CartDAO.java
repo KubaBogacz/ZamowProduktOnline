@@ -8,6 +8,12 @@ import java.util.List;
 
 public class CartDAO {
 
+    /***
+     * Metoda dodająca nowy wózek do BD
+     * @param cart - dodawany wózek
+     * @param connection - połączenie z BD
+     * @throws SQLException - jeśli połączenie z BD jes niepoprawne, bądź nie powiodło się wywołanie polecenia
+     */
     public static void addCart(Cart cart, Connection connection) throws SQLException {
         String sql = "INSERT INTO zpo.carts (user_id) VALUES (?)";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -15,6 +21,12 @@ public class CartDAO {
         preparedStatement.executeUpdate();
     }
 
+    /***
+     * Metoda aktualizująca wózek w BD na aktualny stan wózka
+     * @param cart - wózek
+     * @param connection - połączenie z BD
+     * @throws SQLException - jeśli połączenie z BD jes niepoprawne, bądź nie powiodło się wywołanie polecenia
+     */
     public static void updateCart(Cart cart, Connection connection) throws SQLException {
         String sql;
         if (cart.getPrice() == 0) {
@@ -28,6 +40,14 @@ public class CartDAO {
         preparedStatement.executeUpdate();
     }
 
+    /***
+     * Metoda importująca wózek danego użytkownika z BD
+     * @param userId - ID użytkownika
+     * @param products - zaimportowana z BD lista produktów
+     * @param connection - połączenie z BD
+     * @return Cart - wózek użytkownika
+     * @throws SQLException - jeśli połączenie z BD jes niepoprawne, bądź nie powiodło się wywołanie polecenia
+     */
     public static Cart importCart(int userId, List<Product> products, Connection connection) throws SQLException {
         String sql = "SELECT * FROM zpo.carts WHERE user_id = " + userId + ";";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -63,6 +83,12 @@ public class CartDAO {
         return cart;
     }
 
+    /***
+     * Metoda obsługująca zakup produktów z koszyka.
+     * @param cart - wózek
+     * @param connection - połączenie z BD
+     * @throws SQLException - jeśli połączenie z BD jes niepoprawne, bądź nie powiodło się wywołanie polecenia
+     */
     public static void buyCart(Cart cart, Connection connection) throws SQLException {
         String sql = "INSERT INTO zpo.orders (user_id, date, products, amounts, price) VALUES (?, ?, ?, ?, ?)";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -72,6 +98,10 @@ public class CartDAO {
         preparedStatement.setString(4, cart.amountsToDBString());
         preparedStatement.setDouble(5, cart.getPrice());
         preparedStatement.executeUpdate();
+        // Aktualizowanie informacji o liczbie sprzedanych sztuk produktu w BD.
+        for (Product product : cart.getProducts()) {
+            ProductDAO.addToSoldAmount(product, cart.getProductAmount(product), connection);
+        }
         cart.clearProducts();
     }
 }

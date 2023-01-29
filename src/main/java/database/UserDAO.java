@@ -12,9 +12,14 @@ import java.util.Objects;
 
 import static app.Functions.printResultSet;
 
-// Funkcja zwracajaca ArrayList Users nie przyjmujac zadnych argumentow - do wywolania na starcie programu
 public class UserDAO {
 
+    /***
+     * Metoda dodająca użytkownika do BD
+     * @param user - nowy użytkownik
+     * @param connection - połączenie z BD
+     * @throws SQLException - jeśli połączenie z BD jes niepoprawne, bądź nie powiodło się wywołanie polecenia
+     */
     public static void addUser(User user, Connection connection) throws SQLException {
         Cart cart = new Cart();
         cart.setUserId(user.getId());
@@ -37,12 +42,25 @@ public class UserDAO {
         preparedStatement.executeUpdate();
     }
 
+    /***
+     * Metoda importująca importująca listę użytkowników i zwracająca ich listę
+     * @param connection - połączenie z BD
+     * @return List<User> - Lista użytkowników
+     * @throws SQLException - jeśli połączenie z BD jes niepoprawne, bądź nie powiodło się wywołanie polecenia
+     */
     public static List<User> importUsers(Connection connection) throws SQLException {
         String sql = "SELECT * FROM zpo.users";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         ResultSet rsUsers = preparedStatement.executeQuery();
         return createUserList(rsUsers);
     }
+
+    /***
+     * Metoda tworząca listę użytkowników na podstawie ResultSetu użytkowników z BD
+     * @param rsUsers - ResultSet użytkowników z BD
+     * @return List<User> - Lista użytkowników
+     * @throws SQLException - jeśli połączenie z BD jes niepoprawne, bądź nie powiodło się wywołanie polecenia
+     */
     private static List<User> createUserList(ResultSet rsUsers) throws SQLException {
         List<User> userList = new ArrayList<>();
         while (rsUsers.next()) {
@@ -69,6 +87,12 @@ public class UserDAO {
         return userList;
     }
 
+    /***
+     * Metoda zwracająca historię zakupów użytkownika
+     * @param userId - ID sprawdzanego użytkownika
+     * @param connection - połączenie z BD
+     * @throws SQLException - jeśli połączenie z BD jes niepoprawne, bądź nie powiodło się wywołanie polecenia
+     */
     public static void showUserOrderHistory(int userId, Connection connection) throws SQLException {
         String sql = "SELECT * FROM zpo.orders WHERE user_id = " + userId + ";";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
